@@ -1,0 +1,16 @@
+* {
+  transition: all .1s linear;  
+}
+body {
+    font-family: 'Fira Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.clearfix {
+    clear: both;
+}
+.main-footer {
+    text-align: center;
+}
+.container {
+    width: 100%;
+    padding: 50px 10%;
+}

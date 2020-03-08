@@ -1,0 +1,152 @@
+* {
+  transition: all .1s linear;  
+}
+body {
+    font-family: 'Fira Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.main-footer {
+    text-align: center;
+}
+.container {
+    width: 100%;
+    padding: 50px 2%;
+}
+#usersTable {
+    table-layout: fixed;
+    width: 100%;
+}
+table.dataTable td input {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 3px;
+    border: 1px solid #AAA;
+    transition: all .1s linear;
+    padding: 5px;
+    background-color: #FAFAFA;
+}
+table.dataTable td input:focus {
+    outline: 0;
+    border: 1px solid #565656;
+    background-color: #FFF;
+}
+.container .hide-input {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
+.container td textarea {
+    width: 100%;
+    resize: none;
+}
+.container .hide-textarea {
+    border: 0;
+    background-color: transparent;
+    overflow: hidden;
+    width: 100%;
+}
+.container #action-list {
+    margin: 15px 0;
+    display: block;
+    border-radius: 3px;
+    width: 10%;
+    font-size: 14px;
+    padding: 5px;
+    color: #565656;
+    float: left;
+}
+.container #save {
+    margin: 15px 0;
+    float: right;
+    font-size: 14px;
+    width: 10%;
+    display: block;
+    padding: 5px 0;
+    color: #FEFEFE;
+    background-color: #34C1DA;
+    border: 2px solid #32BBD3;
+    border-radius: 3px;
+    box-shadow: 1px 1px .5px rgba(0,0,0,.1);
+}
+.container #save:hover, .container #apply:hover {
+    background-color: #32BBD3;
+    border: 2px solid #34C1DA;
+    box-shadow: 1px 1px .5px rgba(0,0,0,0);
+}
+.container #apply {
+    margin: 15px 0;
+    float: right;
+    font-size: 14px;
+    width: 10%;
+    display: block;
+    padding: 5px 0;
+    color: #FEFEFE;
+    background-color: #34C1DA;
+    border: 2px solid #32BBD3;
+    border-radius: 3px;
+    box-shadow: 1px 1px .5px rgba(0,0,0,.1);
+}
+.container .status {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    text-align: center;
+    width: 50%;
+    font-size: 11px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 5px;
+    transition: all .5s linear;
+    
+}
+.container .active {
+    background-color: #00FB04;
+}
+.container .frozen {
+    background-color: #F5000E;
+}
+table.dataTable tr th.select-checkbox.selected::after {
+    content: "\2714";
+    margin-top: -17px;
+    margin-left: 9px;
+    text-align: center;
+/*    text-shadow: rgb(176, 190, 217) 1px 1px, rgb(176, 190, 217) -1px -1px, rgb(176, 190, 217) 1px -1px, rgb(176, 190, 217) -1px 1px;*/
+}
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
+  content: ' ';
+  margin-top: 4px;
+  margin-left: -6px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+table.dataTable tr.selected td.select-checkbox:after,
+table.dataTable tr.selected th.select-checkbox:after {
+    content: '\2714';
+    margin-top: -1px;
+    margin-left: -4px;
+    text-align: center;
+    text-shadow: none;
+}
+table.dataTable tr th.select-checkbox::before,
+table.dataTable tr th.select-checkbox::after {
+    display: block;
+    position: absolute;
+    top: 1.7em;
+    left: 4%;
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+}
+
+table.dataTable tr th.select-checkbox::before {
+    content: ' ';
+    margin-top: -12px;
+    margin-left: 7px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+table.dataTable tbody tr.selected {
+    background-color: #DDD;
+    color: #343434;
+}
