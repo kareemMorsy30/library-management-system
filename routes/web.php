@@ -25,3 +25,4 @@ Route::get('/admin/add-user', function () {
 Route::get('/admin/all-users', function () {
     return view('Admin.users.all');
 });
+Route::Resource('category','CategoryController');
