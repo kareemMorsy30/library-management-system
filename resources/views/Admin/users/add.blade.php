@@ -19,7 +19,8 @@
     <!-- Main content -->
     <section class="content container-fluid">
         <div class="container">
-            <form>
+        <form action="{{ route('add_new_user') }}" method="POST">
+            @csrf
                 <table>
                     <tr>
                         <th><label>Username <small>(<em>required</em>)</small></label></th>
@@ -30,12 +31,16 @@
                         <td><input type="email" name="email" required></td>
                     </tr>
                     <tr>
-                        <th><label>First Name</label></th>
-                        <td><input type="text" name="first-name"></td>
+                        <th><label>Name</label></th>
+                        <td><input type="text" name="name"></td>
                     </tr>
                     <tr>
-                        <th><label>Last Name</label></th>
-                        <td><input type="text" name="last-name"></td>
+                        <th><label>Address</label></th>
+                        <td><input type="text" name="address"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Phone</label></th>
+                        <td><input type="text" name="phone"></td>
                     </tr>
                     <tr>
                         <th><label>Password <small>(<em>required</em>)</small></label></th>
@@ -49,13 +54,22 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Privilege</th>
+                        <td>
+                            <input type="radio" id="user" name="privilege" value="user">
+                            <label for="user">User</label><br>
+                            <input type="radio" id="manager" name="privilege" value="manager">
+                            <label for="manager">Manager</label><br>
+                        </td>
+                    </tr>
+                    <tr>
                         <th><label>Send Password?</label></th>
                         <td><label class="check"><input class="checkb" type="checkbox" name="send-password" value="send">
                             Send this password to the new user by email.
                         </label></td>
                     </tr>
                 </table>
-                <input class="submit" type="submit" value="Submit">
+                <button class="submit" type="submit" >Submit</button>
             </form>
         </div>
     </section>
