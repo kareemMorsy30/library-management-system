@@ -1,0 +1,118 @@
+body{
+    overflow-x: hidden;
+}
+
+.navbar-brand{
+    margin-right: 100px;
+}
+
+#navbarDropdown{
+    margin-right: 80px;
+}
+
+nav{
+    background-color: lightgray;
+    position: sticky;
+}
+
+#myBooks,#favourites{
+    color: black;
+    font-size: medium;
+}
+
+#favourites:hover{
+    color: white;
+}
+
+#myBooks:hover{
+    color: white;
+}
+#myBooks{
+    margin-right: 60px;
+}
+
+.dropdown-item:hover{
+    color: white;
+    background-color: blue;
+}
+
+#categories{
+    margin-left: 50px;
+    margin-top: 30px;
+    border: 2px solid lightgray;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;  
+    color: white;
+    background-color:  blue;
+}
+
+#formStyle{
+    margin-top: 30px;
+    width: 250px;
+    border-radius: 10px;
+    margin-left: 420px;
+    margin-bottom: 10px;
+}
+
+.orderBy{
+    margin-top: 30px;
+    margin-left: 550px;
+    margin-bottom: 10px;
+}
+
+#line{
+    border-bottom: 2px solid lightgray;
+    margin-left: 380px;
+    margin-bottom: 20px;
+}
+
+.links{
+    margin-left: 50px;
+    margin-top: 0;
+    border: 2px solid lightgray;
+    margin-right: 50px;
+    padding: 0;
+}
+
+.links a {
+    padding: 1rem;
+    border-bottom: 2px solid lightgray;
+}
+
+.card-header{
+    width: 16rem;
+    height: 12rem;
+}
+
+.card-title{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.card-body{
+    width: 16rem;
+}
+
+.card-footer{
+    padding: 0;
+}
+
+#heart{
+    width: 40px;
+    height: 40px;
+    float: right;
+    cursor: pointer;
+}
+
+.rank{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}

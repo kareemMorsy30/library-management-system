@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Login.login');
+});
+
+Route::get('/register', function () {
+    return view('Register.register');
 });
 
 // Admin dashboard routes
@@ -24,4 +28,8 @@ Route::get('/admin/add-user', function () {
 
 Route::get('/admin/all-users', function () {
     return view('Admin.users.all');
+});
+
+Route::get('/users/all', function () {
+    return view('User.all');
 });

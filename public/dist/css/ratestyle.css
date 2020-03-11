@@ -1,0 +1,121 @@
+body{
+    overflow-x: hidden;
+}
+
+.navbar-brand{
+    margin-right: 100px;
+}
+
+#navbarDropdown{
+    margin-right: 80px;
+}
+
+nav{
+    background-color: lightgray;
+    position: sticky;
+}
+
+#myBooks,#favourites{
+    color: black;
+    font-size: medium;
+}
+
+#favourites:hover{
+    color: white;
+}
+
+#myBooks:hover{
+    color: white;
+}
+#myBooks{
+    margin-right: 60px;
+}
+
+.dropdown-item:hover{
+    color: white;
+    background-color: blue;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;  
+    color: white;
+    background-color:  blue;
+}
+
+.card-header{
+    width: 13rem;
+    height: 14rem;
+}
+
+.col-md-6{
+    margin-left: 0;
+}
+
+.card{
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 10px;
+}
+
+.card-body{
+    width: 200px;
+}
+
+.title{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#lease{
+    display: block;
+    width: 12rem;
+}
+
+.comment{
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.table{
+    margin-top: 20px;
+    margin-left: 50px;
+    border: 2px solid lightgray;
+    margin-right: 300px;
+    border-radius: 10px;
+}
+
+.table th{
+    background-color: lightgray;
+}
+
+.related{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.rank{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.rankcomment {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-top: 60px;
+}
+
+#heart{
+    width: 40px;
+    height: 40px;
+    float: right;
+    cursor: pointer;
+    margin-right: 20px;
+}
