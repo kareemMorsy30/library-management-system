@@ -70,3 +70,36 @@ body {
     border: 2px solid #34C1DA;
     box-shadow: 1px 1px .5px rgba(0,0,0,0);
 }
+
+
+
+#flex{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+}
+.flex-card{
+    background-color:whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 240px;
+    height: 380px;
+    margin: 15px;
+    padding: 10px;
+}
+
+img{
+    width: 100%;
+    height: 190px;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    flex-grow: 1.5;
+}

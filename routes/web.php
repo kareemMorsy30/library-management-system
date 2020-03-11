@@ -42,3 +42,6 @@ Route::get('/admin/all-users', function () {
 })->name("all_users");
 
 Route::Resource('category','CategoryController');
+
+Route::resource('/admin/addbook','BookController');
+Route::get('/admin/allbooks','ListBookController@index')->name('allbooks');

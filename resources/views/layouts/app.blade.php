@@ -206,6 +206,18 @@ desired effect
             <li><a href="#">Add Product</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Books</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Categories</a></li>
+            <li><a href="{{ url('/admin/allbooks') }}">All Books</a></li>
+            <li><a href="{{ url('/admin/addbook') }}">Add Book</a></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
