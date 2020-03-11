@@ -19,83 +19,74 @@
                         <thead>
                             <tr role="row">
                                 <th class="text-center delete select-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 12px; position: relative;"></th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">Product Name</th>
-                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Categories</th>
-                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Regular Price</th>
-                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">Sale Price</th>
-                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">Inventory</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">Username</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">email</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">address</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">phone</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">role</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">state</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"></th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"></th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach ($users as $user)
                             <tr role="row">
                                 <td></td>
-                                <td class="sorting_1" data-search="product 1" data-order="product 1">
-                                    <input class="hide-input" type="text" name="name" value="product 1" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
+                                <td class="sorting_1" >
+                                   {{$user->username}}
                                 </td>
-                                <td class="sorting_1" data-search="cat 3" data-order="cat 3">
-                                    <input class="hide-input" type="text" name="categories" value="cat 3" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
+                                <td class="sorting_1" >
+                                   {{$user->name}}
                                 </td>
-                                <td class="sorting_1" data-search="5000" data-order="5000">
-                                    <input class="hide-input" type="text" name="regular-price" value="5000" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
+                                <td class="sorting_1" >
+                                   {{$user->email}}
                                 </td>
-                                <td class="sorting_1" data-search="2999" data-order="2999">
-                                    <input class="hide-input" type="text" name="sale-price" value="2999" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
+                                <td class="sorting_1" >
+                                   {{$user->address}}
                                 </td>
-                                <td class="sorting_1" data-search="10" data-order="10">
-                                    <input class="hide-input" type="text" name="inventory" value="10" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
+                                <td class="sorting_1" >
+                                   {{$user->phone}}
                                 </td>
+                                <td class="sorting_1" >
+                                   {{$user->privilege}}
+                                </td>
+                                <td class="sorting_1" >
+                                    @if($user->privilege == 'user')
+                                    @if ($user->active == '1')
+                                        <form></form>
+                                        <form method="POST"  action="{{ route('update_user',$user->id) }}">
+                                            {{method_field('PUT')}}
+                                            @csrf
+                                            <input hidden name="active" value="0">
+                                            <button type="submit" class="btn btn-danger">Deactivete</button>
+                                        </form>
+
+                                    @else
+                                        <form></form>
+                                        <form method="POST"  action="{{ route('update_user',$user->id) }}">
+                                            {{method_field('PUT')}}
+                                            @csrf
+                                            <input hidden name="active" value="1">
+                                            <button type="submit" class="btn btn-primary">activete</button>
+                                        </form>
+                                    @endif
+                                    @endif
+                                </td>
+                                <td><a href="{{route('edit_user',$user->id)}}"> <button type="button" class="btn btn-primary">Update</button> </a></td>
+
+                                <td>
+                                    <form method="POST"  action="{{ route('delete_user',$user->id) }}">
+                                        {{method_field('DELETE')}}
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">DELETE</button>
+                                    </form>
+                                </td>
+
                             </tr>
-                            <tr role="row">
-                                <td></td>
-                                <td class="sorting_1" data-search="product 2" data-order="product 2">
-                                    <input class="hide-input" type="text" name="name" value="product 2" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="cat 2" data-order="cat 2">
-                                    <input class="hide-input" type="text" name="categories" value="cat 2" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="1000" data-order="1000">
-                                    <input class="hide-input" type="text" name="regular-price" value="1000" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="699" data-order="699">
-                                    <input class="hide-input" type="text" name="sale-price" value="699" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="50" data-order="50">
-                                    <input class="hide-input" type="text" name="inventory" value="50" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                            </tr>
-                            <tr role="row">
-                                <td></td>
-                                <td class="sorting_1" data-search="product 3" data-order="product 3">
-                                    <input class="hide-input" type="text" name="name" value="product 3" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="cat 1" data-order="cat 1">
-                                    <input class="hide-input" type="text" name="categories" value="cat 1" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="10000" data-order="10000">
-                                    <input class="hide-input" type="text" name="regular-price" value="10000" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="8999" data-order="8999">
-                                    <input class="hide-input" type="text" name="sale-price" value="8999" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                                <td class="sorting_1" data-search="6" data-order="6">
-                                    <input class="hide-input" type="text" name="inventory" value="6" disabled>
-                                    <input type="hidden" value="hidden1" disabled>
-                                </td>
-                            </tr>
+                        @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -106,4 +97,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-  @endsection  
+  @endsection

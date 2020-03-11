@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,15 +22,23 @@ Route::get('/register', function () {
     return view('Register.register');
 });
 
+//Route::resource('users','UserController');
+//Route::resource('users','AdminController')->parameters([
+//    'users' => 'admin_user'
+//]);
+
+Route::post('/admins','AdminController@store')->name('add_new_user');
+Route::put('/admins/{admin}','AdminController@update')->name('update_user');
+Route::delete('/admins/{admin}','AdminController@destroy')->name('delete_user');
+Route::get('/admins/{admin}','AdminController@edit')->name('edit_user');
+
 // Admin dashboard routes
-Route::get('/admin/add-user', function () {
+Route::get('/admin/add_user', function () {
     return view('Admin.users.add');
-});
+})->name("add_user");
 
 Route::get('/admin/all-users', function () {
-    return view('Admin.users.all');
-});
+    return view('Admin.users.all',['users'=> User::all()]);
+})->name("all_users");
 
-Route::get('/users/all', function () {
-    return view('User.all');
-});
+Route::Resource('category','CategoryController');
