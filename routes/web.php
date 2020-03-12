@@ -29,6 +29,10 @@ Route::get('/libraryhome', function () {
     return view('User.libraryhome');
 });
 
+Route::get('/libraryhome', function () {
+    return view('User.libraryhome');
+});
+
 Route::resource('users','UserController');
 Route::resource('borrows','BorrowsController');
 //Route::resource('users','AdminController')->parameters([
