@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function books_borrows()
+    {
+        return $this->belongsToMany('App\Book','borrows','user_id','book_id');
+    }
 }

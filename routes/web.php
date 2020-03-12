@@ -25,7 +25,12 @@ Route::post('/library/home', 'LoginController@authenticate');
 Route::get('/logout', 'LoginController@logout');
 
 
+Route::get('/libraryhome', function () {
+    return view('User.libraryhome');
+});
+
 Route::resource('users','UserController');
+Route::resource('borrows','BorrowsController');
 //Route::resource('users','AdminController')->parameters([
 //    'users' => 'admin_user'
 //]);
@@ -46,5 +51,5 @@ Route::get('/admin/all-users', function () {
 
 Route::Resource('category','CategoryController');
 
-Route::resource('/admin/addbook','BookController');
+Route::Resource('/admin/addbook','BookController');
 Route::get('/admin/allbooks','ListBookController@index')->name('allbooks');
