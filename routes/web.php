@@ -2,6 +2,8 @@
 
 use App\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +31,7 @@ Route::resource('users','UserController');
 //]);
 
 // Admin dashboard routes
-Route::post('/admins','AdminController@store')->name('add_new_user');
+Route::post('/admins','AdminController@store')->name('add_new_user')->middleware(Auth::user("admin"));
 Route::put('/admins/{admin}','AdminController@update')->name('update_user');
 Route::delete('/admins/{admin}','AdminController@destroy')->name('delete_user');
 Route::get('/admins/{admin}','AdminController@edit')->name('edit_user');
