@@ -39,8 +39,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
 //        return $request;
-        $request->validate(['username' => [
-            'required'],
+        $request->validate([
+            'username' => [
+            'required'
+        ],
             'password' => [
                 'required',
                 'min:8',
@@ -61,7 +63,7 @@ class UserController extends Controller
         $request->merge(['privilege' => 'user']);
 //        return request()->all()['password'];
         $user->create(request()->all());
-        return view('User.libraryhome');
+        return view('Login.login');
     }
 
     /**

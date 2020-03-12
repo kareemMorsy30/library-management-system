@@ -13,14 +13,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('Login.login');
-});
-
+Route::get('/', 'HomeController@index');
+Route::get('/log-in', 'LoginController@index');
 Route::get('/register', function () {
     return view('Register.register');
 });
+Route::post('/library/home', 'LoginController@authenticate'); 
+// Route::post('userDashboard','LoginController@userDashboard');
+Route::get('/logout', 'LoginController@logout');
+
 
 Route::resource('users','UserController');
 //Route::resource('users','AdminController')->parameters([
