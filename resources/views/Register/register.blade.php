@@ -38,7 +38,17 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" action="{{ route('users.store') }}" method="POST">
+					@csrf
+					@if ($errors->any())
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
 						<input class="input100" type="text" name="username" placeholder="Enter username">
@@ -50,14 +60,20 @@
 						<input class="input100" type="text" name="email" placeholder="Enter E-mail Addess">
 						<span class="focus-input100"></span>
                     </div>
+
+					<div class="wrap-input100 validate-input m-b-26" >
+						<span class="label-input100">Name</span>
+						<input class="input100" type="text" name="name" placeholder="Enter Name">
+						<span class="focus-input100"></span>
+					</div>
                     
-                    <div class="wrap-input100 validate-input m-b-26" data-validate="Adress is required">
+                    <div class="wrap-input100 validate-input m-b-26" >
 						<span class="label-input100">Address</span>
 						<input class="input100" type="text" name="address" placeholder="Enter Your Address">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-26" data-validate="Phone is required">
+					<div class="wrap-input100 validate-input m-b-26" >
 						<span class="label-input100">Phone</span>
 						<input class="input100" type="text" name="phone" placeholder="Enter Your Phone">
 						<span class="focus-input100"></span>
@@ -65,18 +81,18 @@
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password">
+						<input class="input100" type="password" name="password" placeholder="Enter password">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password confirmation is required">
 						<span class="label-input100">Confirm Password</span>
-						<input class="input100" type="password" name="confirmpass" placeholder="confirm password">
+						<input class="input100" type="password" name="password_confirmation" placeholder="confirm password">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button type="submit" class="login100-form-btn">
 							register
 						</button>
 					</div>

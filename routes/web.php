@@ -27,12 +27,12 @@ Route::resource('users','UserController');
 //    'users' => 'admin_user'
 //]);
 
+// Admin dashboard routes
 Route::post('/admins','AdminController@store')->name('add_new_user');
 Route::put('/admins/{admin}','AdminController@update')->name('update_user');
 Route::delete('/admins/{admin}','AdminController@destroy')->name('delete_user');
 Route::get('/admins/{admin}','AdminController@edit')->name('edit_user');
 
-// Admin dashboard routes
 Route::get('/admin/add_user', function () {
     return view('Admin.users.add');
 })->name("add_user");

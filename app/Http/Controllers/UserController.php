@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -36,9 +38,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        /*$user = new User;
+//        return $request;
+        $request->validate(['username' => [
+            'required'],
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+                'confirmed'
+            ],
+            'email' => [
+                'required',
+                'email:filter'
+            ],
+            'privilege' =>[
+                Rule::in(['user'])
+            ]
+        ]);
+        $user = new User;
+//        request()->all()->password = ;
+        $request->merge(['password' => Hash::make(request()->all()['password'])]);
+        $request->merge(['privilege' => 'user']);
+//        return request()->all()['password'];
         $user->create(request()->all());
-        return redirect()->route('all_users', ['users' => User::all()])->with('success', 'User added');*/
+        return view('User.libraryhome');
     }
 
     /**
