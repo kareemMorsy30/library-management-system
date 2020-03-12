@@ -22,7 +22,7 @@ Route::get('/register', function () {
     return view('Register.register');
 });
 
-//Route::resource('users','UserController');
+Route::resource('users','UserController');
 //Route::resource('users','AdminController')->parameters([
 //    'users' => 'admin_user'
 //]);

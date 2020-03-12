@@ -8,11 +8,17 @@
             <form>
                 <div class="col-sm-12">
                     <table id="productsTable" class="table table-striped table-bordered dataTable no-footer" cellspacing="0" role="grid" aria-describedby="example_info">
-                        <select id="action-list">
+                       {{-- <select id="action-list">
                             <option value="0" selected disabled>Actions</option>
                             <option value="1">Edit</option>
                             <option value="2" class="delete">Delete</option>
-                        </select>
+                        </select>--}}
+                        @if(session()->get('success') != null)
+                            <div class="alert alert-success">{{ session()->get('success') }}</div>
+                        @endif
+                        @if(session()->get('error') != null)
+                            <div class="alert alert-danger">{{ session()->get('error') }}</div>
+                        @endif
 <!--                        <input id="save" type="submit" value="Save">-->
                         <button type="submit" onclick="editelement()" id="apply" class="hidden">Apply</button>
                         <div class="clearfix"></div>

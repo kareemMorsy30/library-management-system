@@ -49,14 +49,14 @@
                     <tr>
                         <th><label>Repeat Password <small>(<em>required</em>)</small></label></th>
                         <td>
-                            <input id="rep-password" onkeyup="passwordCheck();" type="password" name="rep-password" required>
+                            <input id="rep-password" onkeyup="passwordCheck();" type="password" name="password_confirmation" required>
                             <div id="message"></div>
                         </td>
                     </tr>
                     <tr>
                         <th>Privilege</th>
                         <td>
-                            <input type="radio" id="user" name="privilege" value="user">
+                            <input type="radio" id="user" name="privilege" value="user" checked>
                             <label for="user">User</label><br>
                             <input type="radio" id="manager" name="privilege" value="manager">
                             <label for="manager">Manager</label><br>
