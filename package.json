@@ -19,6 +19,7 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "jquery-ujs": "^1.2.2",
         "startbootstrap-simple-sidebar": "^5.1.1"
     }
 }
