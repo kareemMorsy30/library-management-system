@@ -137,6 +137,5 @@ class BookController extends Controller
         $book = \App\Book::find($id);
         $book->delete();
         return redirect()->Route('allbooks');
-        
     }
 }

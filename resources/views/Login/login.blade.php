@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V15</title>
+	<title>Library Management System</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -32,16 +32,26 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-form-title" style="background-image: url(login/images/bg-01.jpg);">
+				<div class="login100-form-title" style="background-image: url(login/images/logreg.jpg);">
 					<span class="login100-form-title-1">
 						Sign In
 					</span>
 				</div>
 
-				<form class="login100-form validate-form">
+				<form action="{{url('library/home')}}" method="POST" class="login100-form validate-form">
+					@csrf
+					@if ($errors->any())
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Enter username">
+						<input class="input100" type="text" name="username" placeholder="Enter username or Email">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -67,7 +77,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button type="submit" class="login100-form-btn">
 							Login
 						</button>
 					<a href="{{ url('/register') }}" class="txt1" style="margin-top: 15px; margin-left: 10px;">

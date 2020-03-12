@@ -6,6 +6,8 @@ use App\Http\Controllers\FavouriteController;
 use Illuminate\Support\Facades\Route;
 use League\CommonMark\Extension\Table\Table;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,16 +19,26 @@ use Illuminate\Support\Facades\DB;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('Login.login');
-});
-
+Route::get('/', 'HomeController@index');
+Route::get('/log-in', 'LoginController@index');
 Route::get('/register', function () {
     return view('Register.register');
 });
+Route::post('/library/home', 'LoginController@authenticate'); 
+// Route::post('userDashboard','LoginController@userDashboard');
+Route::get('/logout', 'LoginController@logout');
+
+
+Route::get('/libraryhome', function () {
+    return view('User.libraryhome');
+});
+
+Route::get('/libraryhome', function () {
+    return view('User.libraryhome');
+});
 
 Route::resource('users','UserController');
+Route::resource('borrows','BorrowsController');
 //Route::resource('users','AdminController')->parameters([
 //    'users' => 'admin_user'
 //]);

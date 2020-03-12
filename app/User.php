@@ -13,6 +13,7 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,6 +42,9 @@ class User extends Authenticatable
     ];
 
     public function favourites(){
-        return $this->hasMany('App\Favourite');
+        return $this->hasMany('App\Favourite');}
+    public function books_borrows()
+    {
+        return $this->belongsToMany('App\Book','borrows','user_id','book_id');
     }
 }
