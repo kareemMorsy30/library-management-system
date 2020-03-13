@@ -3,32 +3,34 @@
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
-    <div class="showCards">
-        @foreach ( $books as $book )
-<div class="flex-card card">
-    <div>
-        <img src="{{url('uploads/'.$book->pic)}}"/>
-    </div>
-    <div class="card-body">
-        <div >
-            <img class="rank" src="/rankicon.png">
-            <img class="rank" src="/rankicon.png">
-            <img class="rank" src="/rankicon.png">
-            <img class="rank" src="/rankicon.png">
-            <img class="rank" src="/rankicon.png">
+<div class="showCards">
+    @foreach ( $books as $book )
+        <div class="flex-card card">
+            <div>
+                <img src="{{url('uploads/'.$book->pic)}}"/>
+            </div>
+        <div class="card-body">
+            <div >
+                <img class="rank" src="/rankicon.png">
+                <img class="rank" src="/rankicon.png">
+                <img class="rank" src="/rankicon.png">
+                <img class="rank" src="/rankicon.png">
+                <img class="rank" src="/rankicon.png">
+            </div>
+            <p class="card-title">{{ $book->title }}</p>
+            <p class="card-text">{{ $book->description }}</p>
+            <span>{{ $book->quantity }} copies available</span>
+            <a><img src="/heart.png" id="heart"></a>
+        </div><br>
+        <div class="card-footer">
+            <button id="lease" class="btn btn-success btn-sm btn-block lease" >Lease</button>
         </div>
-      <p class="card-title">{{ $book->title }}</p>
-      <p class="card-text">{{ $book->description }}</p>
-      <span>{{ $book->quantity }} copies available</span>
-      <a><img src="/heart.png" id="heart"></a>
-    </div><br>
-    <div class="card-footer">
-        <button id="lease" class="btn btn-success btn-sm btn-block lease" >Lease</button>
     </div>
-
-</div>
 @endforeach
 </div>
+<div style="margin-top: 20px; margin-left: 380px;">{{ $books->links() }}</div>
+<script src="{{asset('js/library_home.js')}}"> </script>
+@endsection
     {{-- <div class="card">
         <div class="card-header">
             picture
@@ -110,5 +112,4 @@
             </div>
         </div>
     </div> --}}
-<script src="{{asset('js/library_home.js')}}"> </script>
-@endsection
+

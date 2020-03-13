@@ -15,7 +15,7 @@ nav{
     position: sticky;
 }
 
-#myBooks,#favourites{
+#myBooks,#favourites,#allbooks{
     color: black;
     font-size: medium;
 }
@@ -27,8 +27,17 @@ nav{
 #myBooks:hover{
     color: white;
 }
+
+#allbooks:hover{
+    color: white;
+}
+
 #myBooks{
-    margin-right: 60px;
+    margin-right: 30px;
+}
+
+#allbooks{
+    margin-right: 30px;
 }
 
 .dropdown-item:hover{

@@ -15,7 +15,7 @@ nav{
     position: sticky;
 }
 
-#myBooks,#favourites{
+#myBooks,#favourites,#allbooks{
     color: black;
     font-size: medium;
 }
@@ -27,8 +27,17 @@ nav{
 #myBooks:hover{
     color: white;
 }
+
+#allbooks:hover{
+    color: white;
+}
+
 #myBooks{
-    margin-right: 60px;
+    margin-right: 30px;
+}
+
+#allbooks{
+    margin-right: 30px;
 }
 
 .dropdown-item:hover{
@@ -54,10 +63,13 @@ a:hover{
 
 #formStyle{
     margin-top: 30px;
-    width: 250px;
+    width: 350px;
     border-radius: 10px;
     margin-left: 420px;
     margin-bottom: 10px;
+    background: url('/search.png') no-repeat scroll;
+    padding-left:40px;
+    background-size: 40px 32px;
 }
 
 .orderBy{
@@ -132,4 +144,8 @@ img{
 
 .card{
     margin-left:  30px;
+}
+
+.pagination{
+    background-color: white;
 }

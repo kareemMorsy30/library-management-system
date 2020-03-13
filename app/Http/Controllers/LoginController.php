@@ -23,7 +23,7 @@ class LoginController extends Controller
             if (Auth::attempt([$checkVal => $request->username, 'password' => $request->pass])){
             if(Auth::user()->active == 1){
                 if(Auth::user()->privilege =="user"){
-                    return view('User.libraryhome');
+                    return redirect('/library/home');
                 }
                 if(Auth::user()->privilege =="admin"){
                     return redirect('/admin/all-users');
