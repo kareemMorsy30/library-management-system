@@ -63,3 +63,9 @@ Route::Resource('category','CategoryController');
 Route::Resource('/admin/addbook','BookController');
 Route::get('/admin/allbooks','ListBookController@index')->name('allbooks');
 Route::delete('/remove-favourite', 'FavouriteController@removeFav')->name('removeFav');
+
+Route::get('rate',function(){
+    return view('User/ratepage');
+});
+
+Route::resource('Favourite','FavouriteController');

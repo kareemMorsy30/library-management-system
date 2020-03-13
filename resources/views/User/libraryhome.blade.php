@@ -9,6 +9,11 @@
     <div>
         <img src="{{url('uploads/'.$book->pic)}}"/>
     </div>
+    <form action="{{route('Favourite.store')}}" method="POST">
+                    @csrf
+                       <input type="hidden" name="id" value={{$book->id}}>
+                        <input type="submit" value="ADD" class="btn btn-info"><br>
+                    </form>
     <div class="card-body">
         <div >
             <img class="rank" src="/rankicon.png">

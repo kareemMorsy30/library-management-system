@@ -8,8 +8,13 @@
       </div>
     </div>
     <div class="card-body">
+    <button type="submit" class="btn btn-success btn-sm" id="wishListButton" name="wishListButton" value="Add to wish list">
+    <i class="fa fa-shopping-cart"></i>
+    Add To wish List
+</button>
       <a><img src="/heart.png" id="heart"></a>
         <p class="card-title title">Book Title</p>
+        
         <div >
           <img class="rank" src="/rankicon.png">
           <img class="rank" src="/rankicon.png">
