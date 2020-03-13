@@ -23,7 +23,7 @@
             <a><img src="/heart.png" id="heart"></a>
         </div><br>
         <div class="card-footer">
-            <button id="lease" class="btn btn-success btn-sm btn-block lease" >Lease</button>
+            <button id="lease" data-toggle="modal" data-title="{{$book->title}}" data-book_id="{{$book->id}}" data-target="#borrow-model" class="btn btn-success btn-sm btn-block lease" >Lease</button>
         </div>
     </div>
 @endforeach
@@ -75,7 +75,7 @@
         </div>
 
     </div> --}}
-    {{-- <div class="modal fade" id="borrow-model"
+     <div class="modal fade" id="borrow-model"
          tabindex="-1" role="dialog"
          aria-labelledby="borrowModalLabel">
         <div class="modal-dialog" role="document">
@@ -111,5 +111,5 @@
             </form>
             </div>
         </div>
-    </div> --}}
+    </div> 
 

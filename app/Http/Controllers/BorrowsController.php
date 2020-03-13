@@ -6,6 +6,8 @@ use App\Book;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BorrowsController extends Controller
 {
@@ -38,13 +40,14 @@ class BorrowsController extends Controller
     public function store(Request $request)
     {
         //
-        $userId = 20;
+        $userId = Auth::id();
         $bookId = $request->book_id;
         $numberOfDays = $request->numberOfDays;
         User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
         $book = Book::find($bookId);
         $book->decrement('quantity', 1);
-        return view('User.libraryhome');
+        $books = DB::table('books')->paginate(3);
+        return view('User.libraryhome', ['books' => $books]);
     }
 
     /**
