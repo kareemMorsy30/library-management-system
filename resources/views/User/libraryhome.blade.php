@@ -19,11 +19,16 @@
             </div>
             <p class="card-title">{{ $book->title }}</p>
             <p class="card-text">{{ $book->description }}</p>
-            <span>{{ $book->quantity }} copies available</span>
-            <a><img src="/heart.png" id="heart"></a>
+            @if($book->quantity <= 0)
+                <button class="btn btn-danger btn-sm" style="border-radius: 15px;" disabled>no copies available</button>
+            @else
+                <span>{{ $book->quantity }} copies available</span>
+            @endif
+                <a><img src="/heart.png" id="heart"></a>
         </div><br>
         <div class="card-footer">
-            <button id="lease" data-toggle="modal" data-title="{{$book->title}}" data-book_id="{{$book->id}}" data-target="#borrow-model" class="btn btn-success btn-sm btn-block lease" >Lease</button>
+            <button id="lease" data-toggle="modal" data-title="{{$book->title}}" data-book_id="{{$book->id}}" data-target="#borrow-model" 
+                class="btn btn-success btn-sm btn-block lease" {{ $book->quantity <= 0?"disabled":"" }}>Lease</button>
         </div>
     </div>
 @endforeach
@@ -31,50 +36,7 @@
 <div style="margin-top: 20px; margin-left: 380px;">{{ $books->links() }}</div>
 <script src="{{asset('js/library_home.js')}}"> </script>
 @endsection
-    {{-- <div class="card">
-        <div class="card-header">
-            picture
-        </div>
-        <div class="card-body">
-            <div >
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-            </div>
-            <p class="card-title">Book Title</p>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae dolores adipisci veniam voluptate perferendis cumque</p>
-            <span>2 copies available</span>
-            <a><img src="/heart.png" id="heart"></a>
-        </div><br>
-        <div class="card-footer">
-            <button id="lease" class="btn btn-success btn-sm btn-block lease" >Lease</button>
-        </div>
-
-    </div> --}}
-    {{-- <div class="card">
-        <div class="card-header">
-            picture
-        </div>
-        <div class="card-body">
-            <div >
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-            </div>
-            <p class="card-title">Book Title</p>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae dolores adipisci veniam voluptate perferendis cumque</p>
-            <span>2 copies available</span>
-            <a><img src="/heart.png" id="heart"></a>
-        </div><br>
-        <div class="card-footer">
-            <button id="lease" data-toggle="modal" data-title="{{"C++"}}" data-book_id="{{"1"}}" data-target="#borrow-model" class="btn btn-success btn-sm btn-block lease" >Lease</button>
-        </div>
-
-    </div> --}}
+    
      <div class="modal fade" id="borrow-model"
          tabindex="-1" role="dialog"
          aria-labelledby="borrowModalLabel">
@@ -103,7 +65,7 @@
                             class="btn btn-default"
                             data-dismiss="modal">Close</button>
                     <span class="pull-right">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-success">
             Borrow
           </button>
         </span>

@@ -29,11 +29,9 @@ Route::get('/register', function () {
 });
 
 // library home routes
-Route::get('/libraryhome', function () {
-    return view('User.libraryhome');
-});
 Route::post('/library/home', 'LoginController@authenticate'); 
-Route::get('/library/home', 'ListBookController@libraryIndex')->name('home');
+Route::get('/library/home', 'ListBookController@libraryIndex')->name("home");
+Route::get('/library/home/{cat_id}', 'ListBookController@libraryByCat');
 
 //logout route
 Route::get('/logout', 'LoginController@logout');
