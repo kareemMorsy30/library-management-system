@@ -47,7 +47,7 @@ class BorrowsController extends Controller
         $book = Book::find($bookId);
         $book->decrement('quantity', 1);
         $books = DB::table('books')->paginate(3);
-        return view('User.libraryhome', ['books' => $books]);
+        return redirect()->route('home', ['books' => $books]);
     }
 
     /**

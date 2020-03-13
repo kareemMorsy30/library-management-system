@@ -33,7 +33,7 @@ Route::get('/libraryhome', function () {
     return view('User.libraryhome');
 });
 Route::post('/library/home', 'LoginController@authenticate'); 
-Route::get('/library/home', 'ListBookController@libraryIndex');
+Route::get('/library/home', 'ListBookController@libraryIndex')->name('home');
 
 //logout route
 Route::get('/logout', 'LoginController@logout');
