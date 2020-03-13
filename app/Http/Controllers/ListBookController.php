@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Book;
-
+use Illuminate\Support\Facades\DB;
 
 class ListBookController extends Controller
 {
     public function index()
     {
-        return view('books.allBooks', ['books' => \App\Book::all()] );
+        return view('books.allBooks', ['books' => Book::all()] );
     }
 
     public function libraryIndex()
     {
-        return view('User.libraryhome', ['books' => \App\Book::all()] );
+        $books = DB::table('books')->paginate(3);
+        return view('User.libraryhome', ['books' => $books] );
     }
 }

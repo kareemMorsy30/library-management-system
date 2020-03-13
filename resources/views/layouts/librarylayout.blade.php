@@ -17,6 +17,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a href="#" id="allbooks" class="btn btn-outline-primary btn-sm">All Books</a>
+            </li>
             <li class="nav-item active">
               <a href="#" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
             </li>
@@ -27,8 +30,7 @@
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{-- {{ Auth::user()->name }} --}}
-                user
+                {{ Auth::user()->name }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Profile</a>
@@ -41,7 +43,6 @@
       <div class="row">
         <div class="col-md-4">
             <input id="formStyle" class="form-control" type="search" placeholder="Search by name or auther" aria-label="Search">
-            {{-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
         </div>
       <div class="orderBy">
         <label for="Order by">Order by: </label>
@@ -58,7 +59,7 @@
       </div>
       <div class="row" id="line"></div>
     <div class="row">
-      <div class="card links col-md-3">
+      <div class="card links col-md-3" style="height: 292px;">
         <a href="#">Art</a>
         <a href="#">Music</a>
         <a href="#">Kids</a>

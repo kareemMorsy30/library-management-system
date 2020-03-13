@@ -17,6 +17,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a href="#" id="allbooks" class="btn btn-outline-primary btn-sm">All Books</a>
+            </li>
             <li class="nav-item active">
               <a href="#" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
             </li>
