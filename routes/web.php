@@ -21,6 +21,7 @@ Route::get('/register', function () {
     return view('Register.register');
 });
 Route::post('/library/home', 'LoginController@authenticate'); 
+Route::post('/library/home', 'ListBookController@libraryIndex');
 // Route::post('userDashboard','LoginController@userDashboard');
 Route::get('/logout', 'LoginController@logout');
 

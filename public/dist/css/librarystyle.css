@@ -7,7 +7,7 @@ body{
 }
 
 #navbarDropdown{
-    margin-right: 80px;
+    margin-right: 60px;
 }
 
 nav{
@@ -78,11 +78,13 @@ a:hover{
     border: 2px solid lightgray;
     margin-right: 50px;
     padding: 0;
+    /* box-sizing: border-box; */
 }
 
 .links a {
     padding: 1rem;
     border-bottom: 2px solid lightgray;
+    /* box-sizing: border-box; */
 }
 
 .card-header{
@@ -95,6 +97,11 @@ a:hover{
     font-weight: bold;
 }
 
+
+img{
+    width: 16rem;
+    height: 12rem;
+}
 .card-body{
     width: 16rem;
 }
@@ -115,4 +122,14 @@ a:hover{
     height: 30px;
     cursor: pointer;
     margin-bottom: 5px;
+}
+
+.showCards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.card{
+    margin-left:  30px;
 }

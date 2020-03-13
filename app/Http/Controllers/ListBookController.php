@@ -12,4 +12,9 @@ class ListBookController extends Controller
     {
         return view('books.allBooks', ['books' => \App\Book::all()] );
     }
+
+    public function libraryIndex()
+    {
+        return view('User.libraryhome', ['books' => \App\Book::all()] );
+    }
 }

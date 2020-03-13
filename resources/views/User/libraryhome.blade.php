@@ -2,9 +2,12 @@
 
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<div class="card">
-    <div class="card-header">
-        picture
+    
+    <div class="showCards">
+        @foreach ( $books as $book )
+<div class="flex-card card">
+    <div>
+        <img src="{{url('uploads/'.$book->pic)}}"/>
     </div>
     <div class="card-body">
         <div >
@@ -14,9 +17,9 @@
             <img class="rank" src="/rankicon.png">
             <img class="rank" src="/rankicon.png">
         </div>
-      <p class="card-title">Book Title</p>
-      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae dolores adipisci veniam voluptate perferendis cumque</p>
-      <span>2 copies available</span>
+      <p class="card-title">{{ $book->title }}</p>
+      <p class="card-text">{{ $book->description }}</p>
+      <span>{{ $book->quantity }} copies available</span>
       <a><img src="/heart.png" id="heart"></a>
     </div><br>
     <div class="card-footer">
@@ -24,7 +27,9 @@
     </div>
 
 </div>
-    <div class="card">
+@endforeach
+</div>
+    {{-- <div class="card">
         <div class="card-header">
             picture
         </div>
@@ -45,8 +50,8 @@
             <button id="lease" class="btn btn-success btn-sm btn-block lease" >Lease</button>
         </div>
 
-    </div>
-    <div class="card">
+    </div> --}}
+    {{-- <div class="card">
         <div class="card-header">
             picture
         </div>
@@ -67,8 +72,8 @@
             <button id="lease" data-toggle="modal" data-title="{{"C++"}}" data-book_id="{{"1"}}" data-target="#borrow-model" class="btn btn-success btn-sm btn-block lease" >Lease</button>
         </div>
 
-    </div>
-    <div class="modal fade" id="borrow-model"
+    </div> --}}
+    {{-- <div class="modal fade" id="borrow-model"
          tabindex="-1" role="dialog"
          aria-labelledby="borrowModalLabel">
         <div class="modal-dialog" role="document">
@@ -82,7 +87,7 @@
                         id="borrowModalLabel"></h4>
                 </div>
                 <form method="post" action="{{ route('borrows.store') }}">
-                    @csrf
+                    @csrf   
                     <input name="book_id" id="book_id" hidden/>
                 <div class="modal-body">
                     <p>
@@ -104,6 +109,6 @@
             </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 <script src="{{asset('js/library_home.js')}}"> </script>
 @endsection
