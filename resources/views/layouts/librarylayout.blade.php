@@ -29,6 +29,7 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
+            @if(Auth::check())
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
               </a>
@@ -36,6 +37,11 @@
                 <a class="dropdown-item" href="#">Profile</a>
               <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               </div>
+            @elseif(Auth::guest())
+              <a href="/log-in" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Login
+              </a>
+            @endif
             </li>
           </ul>
         </div>

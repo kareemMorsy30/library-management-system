@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // login and register routes
-Route::get('/', 'HomeController@index');
+Route::get('/', function () {
+    return redirect("/library/home");
+});
 Route::get('/log-in', 'LoginController@index');
 Route::get('/register', function () {
     return view('Register.register');
