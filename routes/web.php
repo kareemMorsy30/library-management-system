@@ -1,7 +1,11 @@
 <?php
 
 use App\User;
+use App\Http\Controllers;
+use App\Http\Controllers\FavouriteController;
 use Illuminate\Support\Facades\Route;
+use League\CommonMark\Extension\Table\Table;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -58,3 +62,4 @@ Route::Resource('category','CategoryController');
 
 Route::Resource('/admin/addbook','BookController');
 Route::get('/admin/allbooks','ListBookController@index')->name('allbooks');
+Route::delete('/remove-favourite', 'FavouriteController@removeFav')->name('removeFav');

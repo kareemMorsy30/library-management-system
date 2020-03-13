@@ -6,6 +6,10 @@
     <section class="content container-fluid">
         <div class="container">
            <div id="flex">
+           <button type="submit" class="btn btn-fefault cart" id="wishListButton" name="wishListButton" value="Add to wish list">
+    <i class="fa fa-shopping-cart"></i>
+    Add To wish List
+</button>
             @foreach ( $books as $book )
             <div class="flex-card">
                 <div class="title">{{ $book->title }}</div>
@@ -24,6 +28,7 @@
                     {!! Form::open(['route'=>['addbook.destroy',$book->id],'method'=>'delete']) !!}
                     {!! Form::submit('delete'); !!}
                     {!! Form::close() !!}
+                    
                 </div>
             </div>
             @endforeach
