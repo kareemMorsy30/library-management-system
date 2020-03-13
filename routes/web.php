@@ -34,7 +34,7 @@ Route::get('/register', function () {
 Route::get('/libraryhome', function () {
     return view('User.libraryhome');
 });
-Route::post('/library/home', 'LoginController@authenticate'); 
+Route::post('/log-in', 'LoginController@authenticate'); 
 Route::get('/library/home', 'ListBookController@libraryIndex')->name('home');
 
 //logout route

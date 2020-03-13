@@ -20,21 +20,17 @@ class LoginController extends Controller
             'pass' => 'required'
         ]);
         $checkVal  = filter_var($request->username, FILTER_VALIDATE_EMAIL) ?"email":"username";
-            if (Auth::attempt([$checkVal => $request->username, 'password' => $request->pass])){
-            if(Auth::user()->active == 1){
-                if(Auth::user()->privilege =="user"){
-                    return redirect('/library/home');
-                }
-                if(Auth::user()->privilege =="admin"){
-                    return redirect('/admin/all-users');
-                }
-            } else {
-                Session::flush();
-                Auth::logout();
-                return redirect("/log-in");
+       
+        if (Auth::attempt([$checkVal => $request->username, 'password' => $request->pass, 'active' => 1])){
+            if(Auth::user()->privilege =="user"){
+                return redirect('/library/home');
             }
-        } 
-        return redirect()->back();
+            if(Auth::user()->privilege =="admin"){
+                return redirect('/admin/all-users');
+            }
+        } else {
+            return redirect()->back()->with("error", "Check username or password and try again");
+        }
     }
      
     public function logout() {
