@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Favourite;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Book;
 
 class FavouriteController extends Controller
 {
@@ -14,8 +16,13 @@ class FavouriteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
-        //
+        $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
+        $books = Book::all();
+        return view('books.favourite', compact('favourites', 'books'));
+      
+        // return view('books.favourite',['books'=>Book::all()],compact('favourites'));
     }
 
     /**
@@ -40,6 +47,8 @@ class FavouriteController extends Controller
         $fav->user_id = Auth::id();
         $fav->book_id = $request->id;
         $fav->save();
+        return redirect()->route('addbook.index');
+ 
     }
 
     /**
@@ -92,5 +101,6 @@ class FavouriteController extends Controller
             ['user_id', Auth::id()],
             ['book_id', $request->id]
         ])->delete();
+        return redirect()->route('addbook.index');
     }
 }

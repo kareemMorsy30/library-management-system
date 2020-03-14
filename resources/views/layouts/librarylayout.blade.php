@@ -24,7 +24,7 @@
               <a href="#" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
             </li>
             <li class="nav-item">
-              <a href="#" id="favourites" class="btn btn-outline-primary btn-sm">Favourites</a>
+              <a href="/Favourite" id="favourites" class="btn btn-outline-primary btn-sm">Favourites</a>
             </li>
           </ul>
           <ul class="navbar-nav">
