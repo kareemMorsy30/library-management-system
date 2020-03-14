@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a href="#" id="allbooks" class="btn btn-outline-primary btn-sm">All Books</a>
+              <a href="{{ url('/library/home') }}" id="allbooks" class="btn btn-outline-primary btn-sm">All Books</a>
             </li>
             <li class="nav-item active">
               <a href="#" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
@@ -29,6 +29,7 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
+            @if(Auth::check())
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
               </a>
@@ -36,6 +37,11 @@
                 <a class="dropdown-item" href="#">Profile</a>
               <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               </div>
+            @elseif(Auth::guest())
+              <a href="/log-in" class="btn btn-outline-primary btn-sm loginBtn" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Login
+              </a>
+            @endif
             </li>
           </ul>
         </div>
@@ -60,11 +66,9 @@
       <div class="row" id="line"></div>
     <div class="row">
       <div class="card links col-md-3" style="height: 292px;">
-        <a href="#">Art</a>
-        <a href="#">Music</a>
-        <a href="#">Kids</a>
-        <a href="#">Business</a>
-        <a href="#">Computers</a>
+        @foreach($categories as $category)
+          <a href="/library/home/{{ $category->id }}">{{ $category->name }}</a>
+        @endforeach
       </div>
       <div>@yield('content')</div>
       </div>

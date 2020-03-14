@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Book;
-use App\User;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Book;
+use Auth;
+use App\User;
 
-class BorrowsController extends Controller
+
+class RateController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        return view('User.ratepage',['book'=>\App\Book::find($id)]);
     }
 
     /**
@@ -39,14 +40,15 @@ class BorrowsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $userId = Auth::id();
-        $bookId = $request->book_id;
-        $numberOfDays = $request->numberOfDays;
-        User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
-        $book = Book::find($bookId);
-        $book->decrement('quantity', 1);
-        return redirect('/library/home');
+        try{
+        $book_id = $request->id;
+        $rate = $request->rate;
+        $comment = $request->comment;
+        \App\User::find(Auth::id())->rates()->syncWithoutDetaching([$book_id =>['rate'=>$rate , 'comment'=>$comment , 'created_at' => Carbon::now()]]);
+        }catch (\Illuminate\Database\QueryException $e){
+            Session::flash('message', 'Please leave a comment and rate our book!');
+        }
+        return view('User.ratepage',['book' => \App\Book::find($book_id)]);
     }
 
     /**
@@ -81,7 +83,6 @@ class BorrowsController extends Controller
     public function update(Request $request, $id)
     {
         //
-
     }
 
     /**
@@ -92,6 +93,9 @@ class BorrowsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        \App\User::find(Auth::id())->rates()->detach($id);
+        return view('User.ratepage',['book' => \App\Book::find($id)]);
+
     }
 }

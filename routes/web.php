@@ -22,18 +22,23 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // login and register routes
-Route::get('/', 'HomeController@index');
+Route::get('/', function () {
+    return redirect("/library/home");
+});
 Route::get('/log-in', 'LoginController@index');
 Route::get('/register', function () {
     return view('Register.register');
 });
 
 // library home routes
+Route::post('/library/home', 'LoginController@authenticate'); 
+Route::get('/library/home', 'ListBookController@libraryIndex')->name("home");
+Route::get('/library/home/{cat_id}', 'ListBookController@libraryByCat');
 Route::get('/libraryhome', function () {
     return view('User.libraryhome');
 });
-Route::post('/library/home', 'LoginController@authenticate'); 
-Route::get('/library/home', 'ListBookController@libraryIndex');
+Route::post('/log-in', 'LoginController@authenticate'); 
+Route::get('/library/home', 'ListBookController@libraryIndex')->name('home');
 
 //logout route
 Route::get('/logout', 'LoginController@logout');
@@ -43,6 +48,13 @@ Route::resource('users','UserController');
 
 // borrow route
 Route::resource('borrows','BorrowsController');
+
+
+// rate routes
+Route::get('/user/book/{book}','RateController@index')->name('bookrate');
+Route::get('/user/book/{book}/edit','RateController@edit')->name('edit_rate');
+Route::delete('/user/book/{book}','RateController@destroy')->name('delete_rate');
+Route::post('/user/book','RateController@store')->name('bookRstore');
 
 
 // Admin dashboard routes

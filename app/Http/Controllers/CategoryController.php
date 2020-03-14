@@ -15,8 +15,12 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         return view('category.index',['categories'=>Category::all()]);
+    }
 
-       
+    public function showCategory()
+    {
+        $categories = Category::all();
+        return view('User.libraryhome',compact('categories'));
     }
     /**
      * Show the form for creating a new resource.
