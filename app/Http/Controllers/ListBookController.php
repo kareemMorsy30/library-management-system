@@ -20,7 +20,7 @@ class ListBookController extends Controller
     
     public function libraryIndex()
     {
-        $books = DB::table('books')->paginate(3);
+        $books = DB::table('books')->orderBy('created_at','desc')->paginate(3);
         return view('User.libraryhome', ['books' => $books] );
     }
 }

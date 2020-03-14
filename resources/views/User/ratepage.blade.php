@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="row">
-    <div class="card">
-      <div class="card-header">
-         <img src="{{url('uploads/'.$book->pic)}}" width="100%" height="90%"/>
+    <div class="flex-card card">
+      <div>
+         <img src="{{url('uploads/'.$book->pic)}}"/>
       </div>
     </div>
     <div class="card-body">
@@ -18,7 +18,11 @@
           <img class="rank" src="/rankicon.png">
         </div>
         <p class="card-text col-md-6">{{$book->description }}</p>
-        <span>{{ $book->quantity }} copies available</span>
+        @if($book->quantity <= 0)
+                <button class="btn btn-danger btn-sm" style="border-radius: 15px;margin-bottom: 20px" disabled>no copies available</button>
+            @else
+                <span style="margin-bottom: 20px">{{ $book->quantity }} copies available</span>
+            @endif
         <a id="lease" class="btn btn-success btn-sm" href="#">Lease</a> 
     </div>
 </div>

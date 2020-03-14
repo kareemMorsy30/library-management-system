@@ -58,7 +58,7 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#">Rate</a>
-            <a class="dropdown-item" href="#">Latest</a>
+            <a class="dropdown-item" href="{{ route('home') }}">Latest</a>
           </div>
         </div>
       </div>

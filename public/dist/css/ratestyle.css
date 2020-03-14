@@ -32,6 +32,11 @@ nav{
     color: white;
 }
 
+img{
+  width: 13rem;
+  height: 14rem;
+}
+
 #myBooks{
     margin-right: 30px;
 }
