@@ -20,6 +20,15 @@ nav{
     font-size: medium;
 }
 
+.loginBtn{
+    color: black;
+    font-size: medium;
+}
+
+.loginBtn:hover{
+    color: white;
+}
+
 #favourites:hover{
     color: white;
 }

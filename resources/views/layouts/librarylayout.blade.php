@@ -38,7 +38,7 @@
               <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               </div>
             @elseif(Auth::guest())
-              <a href="/log-in" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <a href="/log-in" class="btn btn-outline-primary btn-sm loginBtn" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Login
               </a>
             @endif
