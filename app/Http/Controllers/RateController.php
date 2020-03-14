@@ -82,7 +82,14 @@ class RateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'newcomment' => ' required|max:250',
+            'hiddenrate' => 'required',  
+            ]);
+        $rate = $request->hiddenrate;
+        $comment = $request->newcomment;
+        $user = \App\User::find(Auth::id())->rates()->updateExistingPivot($id,['rate'=>$rate ,'comment'=>$comment ,'created_at' => Carbon::now()]);
+        return view('User.ratepage',['book' => \App\Book::find($id)]);
     }
 
     /**
@@ -93,7 +100,6 @@ class RateController extends Controller
      */
     public function destroy($id)
     {
-
         \App\User::find(Auth::id())->rates()->detach($id);
         return view('User.ratepage',['book' => \App\Book::find($id)]);
 

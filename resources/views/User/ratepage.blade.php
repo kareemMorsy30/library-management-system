@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="row">
-    <div class="card">
-      <div class="card-header">
-         <img src="{{url('uploads/'.$book->pic)}}" width="100%" height="90%"/>
-      </div>
+  <div class="flex-card card">
+    <div>
+       <img src="{{url('uploads/'.$book->pic)}}"/>
     </div>
+  </div>
     <div class="card-body">
     <button type="submit" class="btn btn-success btn-sm" id="wishListButton" name="wishListButton" value="Add to wish list">
     <i class="fa fa-shopping-cart"></i>
@@ -24,7 +24,11 @@
           <img class="rank" src="/rankicon.png">
         </div>
         <p class="card-text col-md-6">{{$book->description }}</p>
-        <span>{{ $book->quantity }} copies available</span>
+        @if($book->quantity <= 0)
+        <button class="btn btn-danger btn-sm" style="border-radius: 15px;margin-bottom: 20px" disabled>no copies available</button>
+    @else
+        <span style="margin-bottom: 20px">{{ $book->quantity }} copies available</span>
+    @endif
         <a id="lease" class="btn btn-success btn-sm" href="#">Lease</a> 
     </div>
 </div>
@@ -77,10 +81,22 @@
 @if(Session::has('message'))
       <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('message') }}</p>
   @endif
+
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 </div>
 
 <div class="row">
+  @foreach ($book->rate as $commenttext)
   @foreach ($book->rate as $comment)
+  @if($comment->id ===$commenttext->pivot->user_id )
     <table class="table">
         <thead>
           <tr>
@@ -108,21 +124,65 @@
         <tbody>
           <tr>
           <td> 
-            {{ $comment->rates[0]->pivot->comment }} 
+            {{ $commenttext->pivot->comment }} 
           </td>
           <td>
-            {!! Form::open(['route'=>['edit_rate',$book->id],'method'=>'get' , 'class'=>'button']) !!}
-            {!! Form::submit('Edit'); !!}
-            {!! Form::close() !!}
-   
-            {!! Form::open(['route'=>['delete_rate',$book->id],'method'=>'delete', 'class'=>'button']) !!}
-            {!! Form::submit('delete'); !!}
+{{------------------------------------  edit section   -----------------------------------------}}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Edit
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      {{-- form --}}
+{!! Form::open(['route'=>['rate.update',$book->id],'method'=>'put' , 'id' =>'hiddenform']) !!}
+      {{ Form::hidden('hiddenrate', 0) }}
+      <div class="ratestar">
+        <span class="ranks">☆</span>
+        <span class="ranks">☆</span>
+        <span class="ranks">☆</span>
+        <span class="ranks">☆</span>
+        <span class="ranks">☆</span>
+        </div>
+        <textarea name="newcomment" class="form-control" rows="3" placeholder="Your Comment..."></textarea>
+        {!! Form::close() !!}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="hiddenform" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>        
+
+
+
+
+
+
+
+{{---------------------------------------------------------------------------------------------}}
+
+            {!! Form::open(['route'=>['delete_rate',$book->id],'method'=>'delete', 'class'=>' button']) !!}
+            {!! Form::submit('delete',['class' =>'btn btn-danger']); !!}
             {!! Form::close() !!}
           </td>
           </tr>
         </tbody>
       </table>
-      @endforeach
+        @endif
+      @endforeach 
+  @endforeach
 </div>
 
 <div class="row related">
@@ -139,4 +199,7 @@
     </div>
   </div>
 </div>
+<script src="{{ asset('/dist/js/rate.js') }}"></script>
+
+
 @endsection
