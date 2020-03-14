@@ -9,14 +9,15 @@
   </div>
     <div class="card-body">
       <a><img src="/heart.png" id="heart"></a>
-        
     <p class="card-title title">{{ $book->title }}</p>
         <div >
+          @for($i =1 ; $i<=5 ; $i++)
+          @if($i<=$rate)
+          <img class="rank" src="/rank.png">
+          @else
           <img class="rank" src="/rankicon.png">
-          <img class="rank" src="/rankicon.png">
-          <img class="rank" src="/rankicon.png">
-          <img class="rank" src="/rankicon.png">
-          <img class="rank" src="/rankicon.png">
+          @endif
+          @endfor
         </div>
         <p class="card-text col-md-6">{{$book->description }}</p>
         @if($book->quantity <= 0)
@@ -148,7 +149,7 @@
         <span class="ranks">☆</span>
         <span class="ranks">☆</span>
         </div>
-        <textarea name="newcomment" class="form-control" rows="3" placeholder="Your Comment..."></textarea>
+        <textarea name="comment" class="form-control" rows="3" placeholder="Your Comment..."></textarea>
         {!! Form::close() !!}
 
       </div>
@@ -184,15 +185,27 @@
     <p class="title">Related Books</p>
 </div>
 <div class="row">
+  @foreach ($relatedBooks as $Rbook)
+  @if($Rbook->id === $book->id)
+    @continue
+  @else
   <div class="card">
     <div class="card-header">
-        picture
+        <img src="{{url('uploads/'.$Rbook->pic)}}"/>
     </div>
     <div class="card-body">
-      <p class="card-title title">Book Title</p>
-      <span>2 copies available</span>
+    <p class="card-title title"><b>{{ $Rbook->title }}</b></p>
+      <span>
+        @if($Rbook->quantity <= 0)
+        <button class="btn btn-danger btn-sm" style="border-radius: 15px;margin-bottom: 20px" disabled>no copies available</button>
+    @else
+        <span style="margin-bottom: 20px">{{ $Rbook->quantity }} copies available</span>
+    @endif
+      </span>
     </div>
   </div>
+  @endif
+  @endforeach
 </div>
 <script src="{{ asset('/dist/js/rate.js') }}"></script>
 

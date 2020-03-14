@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Book;
@@ -19,7 +20,11 @@ class RateController extends Controller
      */
     public function index($id)
     {
-        return view('User.ratepage',['book'=>\App\Book::find($id)]);
+        $category = \App\Book::find($id)->category_id; 
+        $rate =DB::table('rates')->where('book_id',$id)->avg('rate') !== 'undefined'?
+        round(DB::table('rates')->where('book_id',$id)->avg('rate')):0;
+        return view('User.ratepage',['book'=>\App\Book::find($id) , 
+        'relatedBooks' =>\App\Book::all()->where('category_id',$category ),'rate' => $rate]);
     }
 
     /**
@@ -48,7 +53,7 @@ class RateController extends Controller
         }catch (\Illuminate\Database\QueryException $e){
             Session::flash('message', 'Please leave a comment and rate our book!');
         }
-        return view('User.ratepage',['book' => \App\Book::find($book_id)]);
+        return redirect()->route('bookrate', $book_id);
     }
 
     /**
@@ -83,13 +88,12 @@ class RateController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'newcomment' => ' required|max:250',
-            'hiddenrate' => 'required',  
+            'comment' => ' required|max:250'  
             ]);
         $rate = $request->hiddenrate;
-        $comment = $request->newcomment;
+        $comment = $request->comment;
         $user = \App\User::find(Auth::id())->rates()->updateExistingPivot($id,['rate'=>$rate ,'comment'=>$comment ,'created_at' => Carbon::now()]);
-        return view('User.ratepage',['book' => \App\Book::find($id)]);
+        return redirect()->route('bookrate', $id);
     }
 
     /**
@@ -101,7 +105,7 @@ class RateController extends Controller
     public function destroy($id)
     {
         \App\User::find(Auth::id())->rates()->detach($id);
-        return view('User.ratepage',['book' => \App\Book::find($id)]);
+        return redirect()->route('bookrate', $id);
 
     }
 }
