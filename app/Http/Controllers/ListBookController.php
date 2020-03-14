@@ -25,6 +25,7 @@ class ListBookController extends Controller
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
         $books = DB::table('books')->orderBy('created_at','desc')->paginate(3);
-        return view('User.libraryhome', ['favourites'=>$favourites, 'books'=>$books]);
+        $rate_arr = DB::table('rates')->select(DB::raw('avg(rate)as avg,book_id'))->groupBy('book_id')->get();
+        return view('User.libraryhome', ['favourites'=>$favourites, 'books'=>$books , 'rates'=> $rate_arr ]);
     }
 }

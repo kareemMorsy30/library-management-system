@@ -141,7 +141,7 @@
       <div class="modal-body">
       {{-- form --}}
 {!! Form::open(['route'=>['rate.update',$book->id],'method'=>'put' , 'id' =>'hiddenform']) !!}
-      {{ Form::hidden('hiddenrate', 0) }}
+      {{ Form::hidden('hiddenrate', 0 ) }}
       <div class="ratestar">
         <span class="ranks">☆</span>
         <span class="ranks">☆</span>
