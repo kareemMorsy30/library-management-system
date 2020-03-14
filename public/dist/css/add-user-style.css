@@ -73,33 +73,41 @@ body {
 
 
 
+
 #flex{
     display: flex;
     flex-wrap: wrap;
     width: 100vw;
 }
 .flex-card{
-    background-color:whitesmoke;
+    background-color:white;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    width: 240px;
-    height: 380px;
+    width: 24rem;
+    height: 460px;
     margin: 15px;
-    padding: 10px;
+    padding:0 5px 5px;
 }
 
 img{
-    width: 100%;
+    width: 24rem;
     height: 190px;
+    align-self: flex-start;
 }
 
 .title{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-weight: bold;
-    flex-grow: 1.5;
+    text-align: left;
+    font-weight: bolder;
+    font-size: 1.5em;
+}
+
+.button {
+display: inline-block;
+margin: 10px 5px 0;
+
+}
+.text{
+    margin: 2px 0;
 }

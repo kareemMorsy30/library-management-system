@@ -41,10 +41,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function favourites(){
-        return $this->hasMany('App\Favourite');}
+    public function favourites()
+    {
+        return $this->hasMany('App\Favourite');
+    }
+
     public function books_borrows()
     {
         return $this->belongsToMany('App\Book','borrows','user_id','book_id');
+    }
+
+    public function rates()
+    {
+        return $this->belongsToMany('App\Book','rates','user_id','book_id')->withPivot('id','rate', 'comment','created_at');
     }
 }
