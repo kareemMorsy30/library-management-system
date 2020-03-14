@@ -5,6 +5,7 @@
     
 <div class="showCards">
     @foreach ( $books as $book )
+    <a href="{{ route('bookrate',$book->id) }}">
         <div class="flex-card card">
             <div>
                 <img src="{{url('uploads/'.$book->pic)}}"/>
@@ -31,6 +32,7 @@
                 class="btn btn-success btn-sm btn-block lease" {{ $book->quantity <= 0?"disabled":"" }}>Lease</button>
         </div>
     </div>
+    </a>
 @endforeach
 </div>
 <div style="margin-top: 20px; margin-left: 380px;">{{ $books->links() }}</div>

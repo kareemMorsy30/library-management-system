@@ -19,4 +19,11 @@ class Book extends Model
     {
         return $this->belongsToMany('App\User','borrows','book_id','user_id');
     }
+
+    public function rate()
+    {
+        return $this->belongsToMany('App\User','rates','book_id','user_id')->withPivot('id','rate', 'comment','created_at');
+    }
+
+    
 }

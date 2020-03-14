@@ -38,7 +38,7 @@
 					</span>
 				</div>
 
-				<form action="{{url('library/home')}}" method="POST" class="login100-form validate-form">
+				<form action="{{url('log-in')}}" method="POST" class="login100-form validate-form">
 					@csrf
 					@if ($errors->any())
 						<div class="alert alert-danger">
@@ -47,6 +47,11 @@
 									<li>{{ $error }}</li>
 								@endforeach
 							</ul>
+						</div>
+					@endif
+					@if(session()->has('error'))
+						<div class="alert alert-danger">
+							{{ session()->get('error') }}
 						</div>
 					@endif
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
