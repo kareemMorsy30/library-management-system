@@ -55,7 +55,7 @@ Route::get('/user/book/{book}','RateController@index')->name('bookrate');
 Route::get('/user/book/{book}/edit','RateController@edit')->name('edit_rate');
 Route::delete('/user/book/{book}','RateController@destroy')->name('delete_rate');
 Route::post('/user/book','RateController@store')->name('bookRstore');
-
+Route::put('/user/book/{book}','RateController@update')->name('rate.update');
 
 // Admin dashboard routes
 Route::post('/admins','AdminController@store')->name('add_new_user')->middleware(CheckAdmin::class);

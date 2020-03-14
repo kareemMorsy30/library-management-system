@@ -53,6 +53,6 @@ class User extends Authenticatable
 
     public function rates()
     {
-        return $this->belongsToMany('App\Book','rates','user_id','book_id')->withPivot('id','rate', 'comment','created_at');
+        return $this->belongsToMany('App\Book','rates','user_id','book_id')->withPivot('id','rate', 'comment','created_at','user_id');
     }
 }

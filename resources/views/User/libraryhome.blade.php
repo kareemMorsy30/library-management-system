@@ -10,6 +10,7 @@
             <div>
                 <img src="{{url('uploads/'.$book->pic)}}"/>
             </div>
+        </a>
         <div class="card-body">
             <div >
                 <img class="rank" src="/rankicon.png">
@@ -32,7 +33,7 @@
                 class="btn btn-success btn-sm btn-block lease" {{ $book->quantity <= 0?"disabled":"" }}>Lease</button>
         </div>
     </div>
-    </a>
+   
 @endforeach
 </div>
 <div style="margin-top: 20px; margin-left: 380px;">{{ $books->links() }}</div>
