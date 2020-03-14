@@ -16,14 +16,15 @@ class ListBookController extends Controller
     }
     public function libraryByCat($cat_id)
     {
+        $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
         $books = DB::table('books')->where('category_id',$cat_id)->orderBy('created_at','asc')->paginate(3);
-        return view('User.libraryhome', ['books' => $books] );
+        return view('User.libraryhome', ['favourites'=>$favourites, 'books' => $books] );
     }
     
     public function libraryIndex()
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
         $books = DB::table('books')->orderBy('created_at','desc')->paginate(3);
-        return view('User.libraryhome', compact('favourites', 'books'));
+        return view('User.libraryhome', ['favourites'=>$favourites, 'books'=>$books]);
     }
 }
