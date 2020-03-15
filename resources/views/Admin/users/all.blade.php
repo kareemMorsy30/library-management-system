@@ -37,9 +37,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($users as $i => $user)
                             <tr role="row">
-                                <td></td>
+                                <td>{{$i + 1}}</td>
                                 <td class="sorting_1" >
                                    {{$user->username}}
                                 </td>
@@ -86,7 +86,7 @@
                                     <form method="POST"  action="{{ route('delete_user',$user->id) }}">
                                         {{method_field('DELETE')}}
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">DELETE</button>
+                                        <button type="submit" class="btn btn-danger" @if(Auth::user()->privilege == "admin") disabled @endif>DELETE</button>
                                     </form>
                                 </td>
 

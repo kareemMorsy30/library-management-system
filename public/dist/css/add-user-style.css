@@ -103,3 +103,7 @@ img{
     font-weight: bold;
     flex-grow: 1.5;
 }
+
+.table thead {
+    color: white;
+}
