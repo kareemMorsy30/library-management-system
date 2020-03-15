@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AdminRequest;
@@ -145,5 +146,63 @@ class AdminController extends Controller
         }
         $user->delete();
         return redirect()->route('all_users', ['users' => User::all()])->with('success', 'user deleted');
+    }
+
+    public function editProfile() {
+        return view('Admin.profile');
+    }
+
+    public function updateProfile(Request $request){
+        $user = User::find(Auth::id());
+        $user->username = $request->username;
+
+        $password = $request->adminAccountCurrentPassword;
+        $newPassword = $request->adminAccountNewPassword;
+        $confirmPassword = $request->password;
+
+        // Check if the two entered passwords are the same
+        if(!empty($password)){
+            $request->validate([
+                'password' => 'min:8|regex:/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]/',
+            ]);
+
+            if($newPassword == $confirmPassword){
+                if(Auth::attempt(['email' => $request->adminAccountEmail, 'password' => $password])){
+                    // Hash user new password
+                    $user->password = bcrypt($confirmPassword);
+                    
+                    return redirect('/log-in');
+                }else{
+                    return redirect()->back()->with('error' , 'Password entered is incorrect')->withInput();
+                }
+                
+            }else{
+                return redirect()->back()->with('error' , 'Passwords are not the same')->withInput();
+            }
+        }
+
+        $user->save();
+        return redirect()->back()->with('success' , 'User data updated successfully')->withInput();
+    }
+
+    public function updateEmail(Request $request)
+    {
+        if(Auth::attempt(['email' => Auth::user()->email, 'password' => $request->adminChangeEmailPassword])){
+            // Hash user new password
+            $user = User::find(Auth::id());
+            $user->email = $request->adminChangeEmailNew;
+            $user->save();
+            return redirect()->back()->with('success' , 'User email updated successfully')->withInput();
+        }else{
+            return redirect()->back()->with('error' , 'Password entered is incorrect')->withInput();
+        }
+    }
+
+    public function updatePicture(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $user->picture = $this->uploadImage($request, "photo");
+        $user->save();
+        return redirect()->back()->with('success' , 'User picture updated successfully');
     }
 }

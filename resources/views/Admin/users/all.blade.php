@@ -60,24 +60,24 @@
                                 </td>
                                 <td class="sorting_1" >
                                     @if($user->privilege == 'user')
-                                    @if ($user->active == '1')
-                                        <form></form>
-                                        <form method="POST"  action="{{ route('update_user',$user->id) }}">
-                                            {{method_field('PUT')}}
-                                            @csrf
-                                            <input hidden name="active" value="0">
-                                            <button type="submit" class="btn btn-danger">Deactivete</button>
-                                        </form>
+                                        @if ($user->active == 1)
+                                            <form></form>
+                                            <form method="POST"  action="{{ route('update_user',$user->id) }}">
+                                                {{method_field('PUT')}}
+                                                @csrf
+                                                <input hidden name="active" value="0">
+                                                <button type="submit" class="btn btn-danger">Deactivate</button>
+                                            </form>
 
-                                    @else
-                                        <form></form>
-                                        <form method="POST"  action="{{ route('update_user',$user->id) }}">
-                                            {{method_field('PUT')}}
-                                            @csrf
-                                            <input hidden name="active" value="1">
-                                            <button type="submit" class="btn btn-primary">activete</button>
-                                        </form>
-                                    @endif
+                                        @else
+                                            <form></form>
+                                            <form method="POST"  action="{{ route('update_user',$user->id) }}">
+                                                {{method_field('PUT')}}
+                                                @csrf
+                                                <input hidden name="active" value="1">
+                                                <button type="submit" class="btn btn-primary">activate</button>
+                                            </form>
+                                        @endif
                                     @endif
                                 </td>
                                 <td><a href="{{route('edit_user',$user->id)}}"> <button type="button" class="btn btn-primary">Update</button> </a></td>
