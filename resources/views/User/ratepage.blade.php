@@ -49,24 +49,21 @@
         </label>
         <label>
           {!! Form::radio('rate', '3') !!}
-          <span class="icon">★</span>
-          <span class="icon">★</span>
-          <span class="icon">★</span>   
+            @for($i=0; $i<3; $i++)
+              <span class="icon">★</span>
+            @endfor
         </label>
         <label>
           {!! Form::radio('rate', '4') !!}
-          <span class="icon">★</span>
-          <span class="icon">★</span>
-          <span class="icon">★</span>
-          <span class="icon">★</span>
+            @for($i=0; $i<4; $i++)
+              <span class="icon">★</span>
+            @endfor
         </label>
         <label>
           {!! Form::radio('rate', '5') !!}
-          <span class="icon">★</span>
-          <span class="icon">★</span>
-          <span class="icon">★</span>
-          <span class="icon">★</span>
-          <span class="icon">★</span>
+            @for($i=0; $i<5 ; $i++)
+              <span class="icon">★</span>
+            @endfor
         </label>
         {!! Form::close() !!}
         </div>
@@ -90,9 +87,7 @@
 </div>
 
 <div class="row">
-  @foreach ($book->rate as $commenttext)
   @foreach ($book->rate as $comment)
-  @if($comment->id ===$commenttext->pivot->user_id )
     <table class="table">
         <thead>
           <tr>
@@ -120,7 +115,7 @@
         <tbody>
           <tr>
           <td> 
-            {{ $commenttext->pivot->comment }} 
+            {{ $comment->pivot->comment }} 
           </td>
           <td>
 {{------------------------------------  edit section   -----------------------------------------}}
@@ -141,15 +136,13 @@
       <div class="modal-body">
       {{-- form --}}
 {!! Form::open(['route'=>['rate.update',$book->id],'method'=>'put' , 'id' =>'hiddenform']) !!}
-      {{ Form::hidden('hiddenrate', 0 ) }}
+      {{ Form::hidden('hiddenrate','0') }}
       <div class="ratestar">
+        @for($i=0; $i<5 ; $i++)
         <span class="ranks">☆</span>
-        <span class="ranks">☆</span>
-        <span class="ranks">☆</span>
-        <span class="ranks">☆</span>
-        <span class="ranks">☆</span>
+        @endfor
         </div>
-        <textarea name="comment" class="form-control" rows="3" placeholder="Your Comment..."></textarea>
+      <textarea name="comment" class="form-control" rows="3" placeholder="Your Comment..."></textarea>
         {!! Form::close() !!}
 
       </div>
@@ -162,11 +155,6 @@
 </div>        
 
 
-
-
-
-
-
 {{---------------------------------------------------------------------------------------------}}
 
             {!! Form::open(['route'=>['delete_rate',$book->id],'method'=>'delete', 'class'=>' button']) !!}
@@ -176,11 +164,12 @@
           </tr>
         </tbody>
       </table>
-        @endif
-      @endforeach 
   @endforeach
 </div>
 
+
+
+{{------------------------------------ related books  -----------------------------------------}}
 <div class="row related">
     <p class="title">Related Books</p>
 </div>
@@ -190,9 +179,11 @@
     @continue
   @else
   <div class="flex-card card">
+    <a href="{{ route('bookrate', $Rbook->id) }}">
     <div>
         <img src="{{url('uploads/'.$Rbook->pic)}}"/>
     </div>
+    </a>
     <div class="card-body">
     <p class="card-title title"><b>{{ $Rbook->title }}</b></p>
       <span>
