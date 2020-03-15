@@ -22,7 +22,7 @@ class RateController extends Controller
     {
         $category = \App\Book::find($id)->category_id; 
         $rate =DB::table('rates')->where('book_id',$id)->avg('rate') !== 'undefined'?
-        round(DB::table('rates')->where('book_id',$id)->avg('rate')):0;
+        DB::table('rates')->where('book_id',$id)->avg('rate'):0;
         return view('User.ratepage',['book'=>\App\Book::find($id) , 
         'relatedBooks' =>\App\Book::all()->where('category_id',$category ),'rate' => $rate]);
     }
