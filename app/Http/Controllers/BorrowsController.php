@@ -46,8 +46,7 @@ class BorrowsController extends Controller
         User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
         $book = Book::find($bookId);
         $book->decrement('quantity', 1);
-        $books = DB::table('books')->paginate(3);
-        return redirect()->route('home', ['books' => $books]);
+        return redirect('/library/home');
     }
 
     /**

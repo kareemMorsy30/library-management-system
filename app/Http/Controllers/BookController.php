@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Book;
+use App\Favourite;
 use App\Category;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -18,7 +20,9 @@ class BookController extends Controller
     public function index()
     {
         $category = \App\Category::pluck('name', 'id');
-        return view('books.addBook' , ['category' => compact('category')]);
+        // Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
+        // return view('User.libraryhome' , compact('favourites'));
+         return view('books.addBook' , ['category' => compact('category')]);
     }
 
     /**
