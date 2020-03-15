@@ -189,8 +189,8 @@
   @if($Rbook->id === $book->id)
     @continue
   @else
-  <div class="card">
-    <div class="card-header">
+  <div class="flex-card card">
+    <div>
         <img src="{{url('uploads/'.$Rbook->pic)}}"/>
     </div>
     <div class="card-body">
@@ -199,7 +199,7 @@
         @if($Rbook->quantity <= 0)
         <button class="btn btn-danger btn-sm" style="border-radius: 15px;margin-bottom: 20px" disabled>no copies available</button>
     @else
-        <span style="margin-bottom: 20px">{{ $Rbook->quantity }} copies available</span>
+        <span style="margin-bottom: 10px">{{ $Rbook->quantity }} copies available</span>
     @endif
       </span>
     </div>
@@ -208,6 +208,4 @@
   @endforeach
 </div>
 <script src="{{ asset('/dist/js/rate.js') }}"></script>
-
-
 @endsection
