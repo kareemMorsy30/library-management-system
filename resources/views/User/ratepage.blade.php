@@ -117,7 +117,9 @@
           <td> 
             {{ $comment->pivot->comment }} 
           </td>
-          <td>
+          
+@if($comment->pivot->user_id === $user)
+<td>
 {{------------------------------------  edit section   -----------------------------------------}}
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
   Edit
@@ -156,11 +158,11 @@
 
 
 {{---------------------------------------------------------------------------------------------}}
-
             {!! Form::open(['route'=>['delete_rate',$book->id],'method'=>'delete', 'class'=>' button']) !!}
             {!! Form::submit('delete',['class' =>'btn btn-danger']); !!}
             {!! Form::close() !!}
-          </td>
+  </td>
+@endif         
           </tr>
         </tbody>
       </table>

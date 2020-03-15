@@ -21,6 +21,7 @@ class RateController extends Controller
     public function index($id)
     {
         $category = \App\Book::find($id)->category_id; 
+        $user = Auth::id();
         $rate =DB::table('rates')
                 ->where('book_id',$id)
                 ->avg('rate') !== null ? DB::table('rates')
@@ -30,7 +31,8 @@ class RateController extends Controller
 
         return view('User.ratepage',['book'=>\App\Book::find($id) , 
                     'relatedBooks' =>\App\Book::all()->where('category_id',$category ),
-                    'rate' => $rate]);  
+                    'rate' => $rate,
+                    'user' => $user]);  
     }
 
     /**
@@ -122,7 +124,7 @@ class RateController extends Controller
     public function destroy($id)
     {
         \App\User::find(Auth::id())->rates()->detach($id);
-        
+
         return redirect()->route('bookrate', $id);
 
     }
