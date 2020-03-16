@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/dist/css/librarystyle.css">
+  @yield('links')
   <title>Maktabty</title>
 </head>
 <body>
@@ -34,7 +35,7 @@
                 {{ Auth::user()->name }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="/user/profile">Profile</a>
               <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               </div>
             @elseif(Auth::guest())
