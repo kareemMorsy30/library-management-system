@@ -6,8 +6,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Book;
-use Auth;
+// use Auth;
 use App\User;
+use App\Favourite;
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Auth;
 
 
 class RateController extends Controller
@@ -19,7 +23,10 @@ class RateController extends Controller
      */
     public function index($id)
     {
-        return view('User.ratepage',['book'=>\App\Book::find($id)]);
+        $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
+        // $books = DB::table('books');
+        // return view('User.ratepage', compact('favourites', 'books'));
+        return view('User.ratepage',['book'=>\App\Book::find($id)], compact('favourites'));
     }
 
     /**
@@ -104,4 +111,6 @@ class RateController extends Controller
         return view('User.ratepage',['book' => \App\Book::find($id)]);
 
     }
+
+    
 }

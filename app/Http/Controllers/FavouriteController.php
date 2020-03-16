@@ -47,7 +47,7 @@ class FavouriteController extends Controller
         $fav->user_id = Auth::id();
         $fav->book_id = $request->id;
         $fav->save();
-        return redirect()->route('addbook.index');
+        return redirect()->back();
  
     }
 
@@ -101,6 +101,6 @@ class FavouriteController extends Controller
             ['user_id', Auth::id()],
             ['book_id', $request->id]
         ])->delete();
-        return redirect()->route('addbook.index');
+        return redirect()->back();
     }
 }

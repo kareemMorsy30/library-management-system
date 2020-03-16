@@ -12,8 +12,22 @@
     <i class="fa fa-shopping-cart"></i>
     Add To wish List
 </button>
-      <a><img src="/heart.png" id="heart"></a>
-        <p class="card-title title">Book Title</p>
+    
+      @if(in_array($book->id,$favourites))
+            <form action="{{route('removeFav')}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id" value={{$book->id}}>
+                <input type="image" id="heart" src="/coloredheart.png" />
+            </form>
+            @else
+            <form action="{{route('Favourite.store')}}" method="POST">
+                @csrf
+                <input type="image" id="heart" src="/heart.png" />
+                <input type="hidden" name="id" value={{$book->id}}>
+            </form>
+            @endif
+               <p class="card-title title">Book Title</p>
         
     <p class="card-title title">{{ $book->title }}</p>
         <div >

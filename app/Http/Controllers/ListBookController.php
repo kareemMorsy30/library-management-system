@@ -23,7 +23,7 @@ class ListBookController extends Controller
     public function libraryIndex()
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
-        $books = DB::table('books')->orderBy('created_at','desc')->paginate(3);
+        $books = DB::table('books')->paginate(3);
         return view('User.libraryhome', compact('favourites', 'books'));
     }
 }

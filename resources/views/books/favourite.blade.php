@@ -52,7 +52,7 @@
            
            
             
-            <!-- @if(in_array($book->id,$favourites))
+             @if(in_array($book->id,$favourites))
                 <form action="{{route('removeFav')}}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -65,7 +65,7 @@
                     <input type="image" id="heart" src="/heart.png"/>
                     <input type="hidden" name="id" value={{$book->id}}>
                 </form>
-            @endif -->
+            @endif 
             </div><br>
        
        <div class="card-footer">
