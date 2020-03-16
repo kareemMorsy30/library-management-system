@@ -72,22 +72,15 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" style="overflow-y: hidden;">
 <div style="background-color: #ecf0f1; height: 630px; overflow-y: scroll;">
 
   <!-- Main Header -->
   <header class="main-header">
 
-    <!-- Logo -->
-    <a href="#" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Maktabty</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Maktabty</b></span>
-    </a>
-
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
+    <div>
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -100,14 +93,22 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
+              @if(empty(Auth::user()->picture))
               <img src="/dist/img/user-placeholder.d2a3ff8.png" class="user-image" alt="User Image">
+              @else
+              <img src="/uploads/images/{{Auth::user()->picture}}" class="user-image" alt="User Image">
+              @endif
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{Auth::user()->username}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="/dist/img/user-placeholder.d2a3ff8.png" class="img-circle" alt="User Image">
+                @if(empty(Auth::user()->picture))
+                  <img src="/dist/img/user-placeholder.d2a3ff8.png" class="img-circle" alt="User Image">
+                @else
+                  <img src="/uploads/images/{{Auth::user()->picture}}" class="img-circle" alt="User Image">
+                @endif
                 <p>
                   {{Auth::user()->username}} - {{Auth::user()->privilege}}
                   <small>Member since {{date("M. Y",Auth::user()->created_at)}}</small>
@@ -126,6 +127,7 @@ desired effect
           </li>
         </ul>
       </div>
+    </div>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
@@ -134,10 +136,13 @@ desired effect
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-      <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
+        @if(empty(Auth::user()->picture))
           <img src="/dist/img/user-placeholder.d2a3ff8.png" class="img-circle" alt="User Image">
+        @else
+          <img src="/uploads/images/{{Auth::user()->picture}}" class="img-circle" alt="User Image">
+        @endif
         </div>
         <div class="pull-left info">
           <p>{{Auth::user()->username}}</p>

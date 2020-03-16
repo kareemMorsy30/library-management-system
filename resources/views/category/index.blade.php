@@ -4,8 +4,9 @@
 @section('content')
 
     <!-- Main content -->
-<section class="content container-fluid">
-    <div class="container">
+    <div class="app-content content container-fluid">
+    <div class="content-wrapper">
+    <div class="content-header row">
         
      <h2 class="alert alert-success 50m"> Categories</h2>
         <div id="flex">

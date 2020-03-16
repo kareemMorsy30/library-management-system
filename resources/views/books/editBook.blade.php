@@ -2,8 +2,9 @@
 
 @section('content')
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<div class="app-content content container-fluid">
+    <div class="content-wrapper">
+    <div class="content-header row">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -72,6 +73,9 @@
 
     </section>
     <!-- /.content -->
+    </div>
+
+    </div>
   </div>
   <!-- /.content-wrapper -->
 

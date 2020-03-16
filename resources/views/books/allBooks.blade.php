@@ -3,17 +3,17 @@
 @section('content')
 
     <!-- Main content -->
-    <section class="content container-fluid">
-        <div class="container">
-           <div id="flex">
+    <div class="app-content content container-fluid">
+    <div class="content-wrapper">
+    <div class="content-header row">
            <!-- <button type="submit" class="btn btn-fefault cart" id="wishListButton" name="wishListButton" value="Add to wish list">
     <i class="fa fa-shopping-cart"></i>
     Add To wish List
 </button> -->
             @if(count($books) == 0)
-            <div class="alert alert-warning" style="margin-top: 1rem; width: 100rem; display:flex">
+            <div class="alert alert-warning" style="display:flex">
                 No books Added
-                <a href="/admin/addbook" class="btn btn-success cart" id="wishListButton" name="wishListButton" value="Add to wish list" style="margin-left: 70rem">
+                <a href="/admin/addbook" class="btn btn-success cart" id="wishListButton" name="wishListButton" value="Add to wish list" style="margin-left: 40rem">
                     <i class="fa fa-book"></i>
                     Add new book
                 </a>
@@ -44,7 +44,7 @@
             @endforeach
            </div>
         </div>
-    </section>
+</div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

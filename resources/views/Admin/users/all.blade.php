@@ -3,7 +3,9 @@
 @section('content')
 
     <!-- Main content -->
-    <section class="content container-fluid">
+    <div class="app-content content container-fluid">
+    <div class="content-wrapper">
+    <div class="content-header row">
         <div class="container">
             <form>
                 <div class="col-sm-12">
@@ -98,9 +100,11 @@
                 </div>
             </form>
         </div>
-    </section>
+        </div>
     <!-- /.content -->
   </div>
+</div>
+</div>
   <!-- /.content-wrapper -->
 
   @endsection
