@@ -170,8 +170,8 @@ class AdminController extends Controller
                 if(Auth::attempt(['email' => $request->adminAccountEmail, 'password' => $password])){
                     // Hash user new password
                     $user->password = bcrypt($confirmPassword);
-                    
-                    return redirect('/log-in');
+                    $user->save();
+                    return redirect()->back()->with('success' , 'Password updated successfully! Login using your new credentials');
                 }else{
                     return redirect()->back()->with('error' , 'Password entered is incorrect')->withInput();
                 }
