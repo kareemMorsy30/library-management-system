@@ -13,7 +13,7 @@
             </a>
 
             <div class="card-body">
-                {{--<div>
+                <div>
                     @foreach ($rates as $rate)
                         @if($book->id === $rate->book_id)
                             @for($i =1 ; $i<=5 ; $i++)
@@ -25,7 +25,7 @@
                             @endfor
                         @endif
                     @endforeach
-                </div>--}}
+                </div>
                 <p class="card-title">{{ $book->title }}</p>
                 <p class="card-text">{{ $book->description }}</p>
                 @if($book->quantity <= 0) <button class="btn btn-danger btn-sm" style="border-radius: 15px;" disabled>no copies
@@ -49,16 +49,16 @@
                     </form>
                 @endif
             </div><br>
-            <div class="card-footer">
+            {{--<div class="card-footer">
                 <button id="lease" data-toggle="modal" data-title="{{$book->title}}" data-book_id="{{$book->id}}"
                         data-target="#borrow-model" class="btn btn-success btn-sm btn-block lease"
                         {{ $book->quantity <= 0?"disabled":"" }}>Lease</button>
-            </div>
+            </div>--}}
     </div>
 
     @endforeach
 
     </div>
     <div style="margin-top: 20px; margin-left: 380px;">{{ $books->links() }}</div>
-    <script src="{{asset('js/library_home.js')}}"> </script>
+{{--    <script src="{{asset('js/library_home.js')}}"> </script>--}}
 @endsection
