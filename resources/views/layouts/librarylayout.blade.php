@@ -21,7 +21,7 @@
               <a href="{{ url('/library/home') }}" id="allbooks" class="btn btn-outline-primary btn-sm">All Books</a>
             </li>
             <li class="nav-item active">
-              <a href="#" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
+              <a href="{{route('borrows.index')}}" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
             </li>
             <li class="nav-item">
               <a href="/Favourite" id="favourites" class="btn btn-outline-primary btn-sm">Favourites</a>
