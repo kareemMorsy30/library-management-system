@@ -10,28 +10,28 @@
     </div>
   </div>
     <div class="card-body">
-    <button type="submit" class="btn btn-success btn-sm" id="wishListButton" name="wishListButton" value="Add to wish list">
-    <i class="fa fa-shopping-cart"></i>
-    Add To wish List
-</button>
-    
-      @if(in_array($book->id,$favourites))
-            <form action="{{route('removeFav')}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <input type="hidden" name="id" value={{$book->id}}>
-                <input type="image" id="heart" src="/coloredheart.png" />
-            </form>
-            @else
-            <form action="{{route('Favourite.store')}}" method="POST">
-                @csrf
-                <input type="image" id="heart" src="/heart.png" />
-                <input type="hidden" name="id" value={{$book->id}}>
-            </form>
-            @endif
-               <p class="card-title title">Book Title</p>
-        
-     
+        <button type="submit" class="btn btn-success btn-sm" id="wishListButton" name="wishListButton" value="Add to wish list">
+            <i class="fa fa-shopping-cart"></i>
+            Add To wish List
+        </button>
+            
+              @if(in_array($book->id,$favourites))
+                    <form action="{{route('removeFav')}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="id" value={{$book->id}}>
+                        <input type="image" id="heart" src="/coloredheart.png" />
+                    </form>
+                    @else
+                    <form action="{{route('Favourite.store')}}" method="POST">
+                        @csrf
+                        <input type="image" id="heart" src="/heart.png" />
+                        <input type="hidden" name="id" value={{$book->id}}>
+                    </form>
+                    @endif
+                       <p class="card-title title">Book Title</p>
+                
+             
     <p class="card-title title">{{ $book->title }}</p>
         <div >
           @for($i =1 ; $i<=5 ; $i++)
@@ -146,44 +146,13 @@
 @if($comment->pivot->user_id === $user)
 <td>
 {{------------------------------------  edit section   -----------------------------------------}}
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" 
+data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
   Edit
 </button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Edit Review</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      {{-- form --}}
-{!! Form::open(['route'=>['rate.update',$book->id],'method'=>'put' , 'id' =>'hiddenform']) !!}
-      {{ Form::hidden('hiddenrate','0') }}
-      <div class="ratestar">
-        @for($i=0; $i<5 ; $i++)
-        <span class="ranks">☆</span>
-        @endfor
-        </div>
-      <textarea name="comment" class="form-control" rows="3" placeholder="Your Comment..."></textarea>
-        {!! Form::close() !!}
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="hiddenform" >Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>        
-
-
 {{---------------------------------------------------------------------------------------------}}
-            {!! Form::open(['route'=>['delete_rate',$book->id],'method'=>'delete', 'class'=>' button']) !!}
+            {!! Form::open(['route'=>['delete_rate',$book->id, $comment->pivot->id],'method'=>'delete', 'class'=>' button']) !!}
             {!! Form::submit('delete',['class' =>'btn btn-danger']); !!}
             {!! Form::close() !!}
   </td>
@@ -267,4 +236,37 @@
         </div>
     </div>
 </div>
+{{------------------------------------------------------------------------------------------}}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      {{-- form --}}
+{!! Form::open(['route'=>['rate.update',$book->id],'method'=>'put' , 'id' =>'hiddenform']) !!}
+      {{ Form::hidden('hiddenrate','0') }}
+      {{ Form::hidden('rateId','',['id'=>'rateId']) }}
+      <div class="ratestar">
+        @for($i=0; $i<5 ; $i++)
+        <span class="ranks">☆</span>
+        @endfor
+        </div>
+      <textarea name="comment" class="form-control" rows="3" id="comment"></textarea>
+        {!! Form::close() !!}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="hiddenform" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>        
 
