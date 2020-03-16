@@ -36,6 +36,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.16/af-2.2.2/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/r-2.2.1/sc-1.4.4/sl-1.2.5/datatables.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.24.1/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/css/tether.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.11/css/perfect-scrollbar.min.css">
+
+    <link href="{{ asset('/admin/css/admin-app.css') }}" rel="stylesheet">
+    @yield('links')
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -57,22 +72,15 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<body class="hold-transition skin-blue sidebar-mini" style="overflow-y: hidden;">
+<div style="background-color: #ecf0f1; height: 630px; overflow-y: scroll;">
 
   <!-- Main Header -->
   <header class="main-header">
 
-    <!-- Logo -->
-    <a href="#" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Library Management System</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Library Management System</b></span>
-    </a>
-
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
+    <div>
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -80,51 +88,36 @@ desired effect
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
+              @if(empty(Auth::user()->picture))
               <img src="/dist/img/user-placeholder.d2a3ff8.png" class="user-image" alt="User Image">
+              @else
+              <img src="/uploads/images/{{Auth::user()->picture}}" class="user-image" alt="User Image">
+              @endif
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Admin Name</span>
+              <span class="hidden-xs">{{Auth::user()->username}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="/dist/img/user-placeholder.d2a3ff8.png" class="img-circle" alt="User Image">
+                @if(empty(Auth::user()->picture))
+                  <img src="/dist/img/user-placeholder.d2a3ff8.png" class="img-circle" alt="User Image">
+                @else
+                  <img src="/uploads/images/{{Auth::user()->picture}}" class="img-circle" alt="User Image">
+                @endif
                 <p>
-                  Admin Name - Admin
-                  <small>Member since Nov. 2012</small>
+                  {{Auth::user()->username}} - {{Auth::user()->privilege}}
+                  <small>Member since {{date("M. Y",Auth::user()->created_at)}}</small>
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="/admin/profile" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{url('/logout')}}" class="btn btn-default btn-flat">Sign out</a>
@@ -134,6 +127,7 @@ desired effect
           </li>
         </ul>
       </div>
+    </div>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
@@ -142,13 +136,16 @@ desired effect
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-      <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
+        @if(empty(Auth::user()->picture))
           <img src="/dist/img/user-placeholder.d2a3ff8.png" class="img-circle" alt="User Image">
+        @else
+          <img src="/uploads/images/{{Auth::user()->picture}}" class="img-circle" alt="User Image">
+        @endif
         </div>
         <div class="pull-left info">
-          <p>Admin Name</p>
+          <p>{{Auth::user()->username}}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -171,39 +168,15 @@ desired effect
 <!--        <li class="header">HEADER</li>-->
         <!-- Optionally, you can add icons to the links -->
         <li class=""><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Something</span></a></li>
-        <li class="treeview active">
+        <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Users</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">All Users</a></li>
-            <li class="active"><a href="#">Add New User</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Vendors</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">All Vendors</a></li>
-            <li><a href="#">Add New Vendor</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Products</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Add Product</a></li>
+            <li><a href="/admin/all-users">All Users</a></li>
+            <li><a href="/admin/add_user">Add New User</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -213,7 +186,7 @@ desired effect
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Categories</a></li>
+            <li><a href="{{ url('/category') }}">Categories</a></li>
             <li><a href="{{ url('/admin/allbooks') }}">All Books</a></li>
             <li><a href="{{ url('/admin/addbook') }}">Add Book</a></li>
           </ul>
@@ -244,6 +217,9 @@ desired effect
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script type="text/javascript" src="{{asset('/admin/js/profilePage.js')}}"></script>
 
 <!-- jQuery 3 -->
 <script src="/dist/js/jquery.min.js"></script>

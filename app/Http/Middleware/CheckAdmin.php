@@ -16,9 +16,14 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->privilege != "admin") {
-            return redirect('/library/home');
+        if (Auth::check()){
+            if (Auth::user()->privilege != "admin") {
+                return redirect('/library/home');
+            }
+        }else{
+            return redirect('/log-in');
         }
+        
         return $next($request);
     }
 }

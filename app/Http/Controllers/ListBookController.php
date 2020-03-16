@@ -14,16 +14,32 @@ class ListBookController extends Controller
     {
         return view('books.allBooks', ['books' => Book::all()] );
     }
+
     public function libraryByCat($cat_id)
     {
-        $books = DB::table('books')->where('category_id',$cat_id)->orderBy('created_at','asc')->paginate(3);
-        return view('User.libraryhome', ['books' => $books] );
+        $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
+        $books = DB::table('books')
+                    ->where('category_id',$cat_id)
+                    ->orderBy('created_at','asc')->paginate(3);
+
+        $rate_arr = DB::table('rates')
+                    ->select(DB::raw('avg(rate)as avg,book_id'))
+                    ->where('rate', '!=', 0)
+                    ->groupBy('book_id')->get();
+
+        return view('User.libraryhome', ['favourites'=>$favourites,'books' => $books,'rates'=> $rate_arr] );
     }
     
     public function libraryIndex()
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
-        $books = DB::table('books')->paginate(3);
-        return view('User.libraryhome', compact('favourites', 'books'));
+        $books = DB::table('books')->orderBy('created_at','desc')->paginate(3);
+        
+        $rate_arr = DB::table('rates')
+                    ->select(DB::raw('avg(rate)as avg,book_id'))
+                    ->where('rate', '!=', 0)
+                    ->groupBy('book_id')->get();
+
+        return view('User.libraryhome', ['favourites'=>$favourites, 'books'=>$books , 'rates'=> $rate_arr ]);
     }
 }

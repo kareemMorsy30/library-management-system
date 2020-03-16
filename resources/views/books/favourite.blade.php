@@ -2,9 +2,15 @@
 
 @extends('layouts.librarylayout')
 
-@section('content')
+@section('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+@endsection
 
+@section('content')
+
+<div class="app-content content container-fluid">
+<div class="content-wrapper">
+<div class="content-header row">
 <div class="showCards">
     @foreach ( $books as $book )
     @if(in_array($book->id,$favourites))
@@ -79,7 +85,9 @@
 
     @endforeach
 </div>          
-                          
+</div>
+
+</div>                          
                         
                      
                      

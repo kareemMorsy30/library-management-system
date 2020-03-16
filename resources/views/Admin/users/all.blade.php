@@ -3,7 +3,9 @@
 @section('content')
 
     <!-- Main content -->
-    <section class="content container-fluid">
+    <div class="app-content content container-fluid">
+    <div class="content-wrapper">
+    <div class="content-header row">
         <div class="container">
             <form>
                 <div class="col-sm-12">
@@ -37,9 +39,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($users as $i => $user)
                             <tr role="row">
-                                <td></td>
+                                <td>{{$i + 1}}</td>
                                 <td class="sorting_1" >
                                    {{$user->username}}
                                 </td>
@@ -60,24 +62,24 @@
                                 </td>
                                 <td class="sorting_1" >
                                     @if($user->privilege == 'user')
-                                    @if ($user->active == '1')
-                                        <form></form>
-                                        <form method="POST"  action="{{ route('update_user',$user->id) }}">
-                                            {{method_field('PUT')}}
-                                            @csrf
-                                            <input hidden name="active" value="0">
-                                            <button type="submit" class="btn btn-danger">Deactivete</button>
-                                        </form>
+                                        @if ($user->active == 1)
+                                            <form></form>
+                                            <form method="POST"  action="{{ route('update_user',$user->id) }}">
+                                                {{method_field('PUT')}}
+                                                @csrf
+                                                <input hidden name="active" value="0">
+                                                <button type="submit" class="btn btn-danger">Deactivate</button>
+                                            </form>
 
-                                    @else
-                                        <form></form>
-                                        <form method="POST"  action="{{ route('update_user',$user->id) }}">
-                                            {{method_field('PUT')}}
-                                            @csrf
-                                            <input hidden name="active" value="1">
-                                            <button type="submit" class="btn btn-primary">activete</button>
-                                        </form>
-                                    @endif
+                                        @else
+                                            <form></form>
+                                            <form method="POST"  action="{{ route('update_user',$user->id) }}">
+                                                {{method_field('PUT')}}
+                                                @csrf
+                                                <input hidden name="active" value="1">
+                                                <button type="submit" class="btn btn-primary">activate</button>
+                                            </form>
+                                        @endif
                                     @endif
                                 </td>
                                 <td><a href="{{route('edit_user',$user->id)}}"> <button type="button" class="btn btn-primary">Update</button> </a></td>
@@ -86,7 +88,7 @@
                                     <form method="POST"  action="{{ route('delete_user',$user->id) }}">
                                         {{method_field('DELETE')}}
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">DELETE</button>
+                                        <button type="submit" class="btn btn-danger" @if(Auth::user()->privilege == "admin") disabled @endif>DELETE</button>
                                     </form>
                                 </td>
 
@@ -98,9 +100,11 @@
                 </div>
             </form>
         </div>
-    </section>
+        </div>
     <!-- /.content -->
   </div>
+</div>
+</div>
   <!-- /.content-wrapper -->
 
   @endsection

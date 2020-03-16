@@ -12,7 +12,7 @@ function rate(index){
             
         }
     }
-    rating.value = index + 1;
+    rating.value = Math.abs(index-5);
 }
 
 for(let i=0 ; i < 5 ; i++ ){

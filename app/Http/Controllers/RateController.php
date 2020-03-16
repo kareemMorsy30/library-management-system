@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Book;
 // use Auth;
 use App\User;
 use App\Favourite;
-use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -23,10 +24,30 @@ class RateController extends Controller
      */
     public function index($id)
     {
-        $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
-        // $books = DB::table('books');
-        // return view('User.ratepage', compact('favourites', 'books'));
-        return view('User.ratepage',['book'=>\App\Book::find($id)], compact('favourites'));
+
+
+        $favourites = Favourite::where('user_id', Auth::id())->pluck('book_id')->toArray();
+        $category = \App\Book::find($id)->category_id;
+
+        $user = Auth::id();
+        $rate = DB::table('rates')
+            ->where('book_id', $id)
+            ->avg('rate') !== null ? DB::table('rates')
+            ->where('book_id', $id)
+            ->where('rate', '!=', 0)
+            ->avg('rate') : 0;
+
+        return view(
+            'User.ratepage',
+            [
+                'book' => \App\Book::find($id),
+                'relatedBooks' => \App\Book::all()->where('category_id', $category),
+                'rate' => $rate,
+                'user' => $user,
+                'favourites'=>$favourites
+            ]);
+            
+        
     }
 
     /**
@@ -47,15 +68,22 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-        $book_id = $request->id;
-        $rate = $request->rate;
-        $comment = $request->comment;
-        \App\User::find(Auth::id())->rates()->syncWithoutDetaching([$book_id =>['rate'=>$rate , 'comment'=>$comment , 'created_at' => Carbon::now()]]);
-        }catch (\Illuminate\Database\QueryException $e){
+        try {
+
+            $book_id = $request->id;
+            $rate = $request->rate;
+            $comment = $request->comment;
+            \App\User::find(Auth::id())->rates()
+                ->syncWithoutDetaching([$book_id => [
+                    'rate' => $rate,
+                    'comment' => $comment,
+                    'created_at' => Carbon::now()
+                ]]);
+        } catch (\Illuminate\Database\QueryException $e) {
             Session::flash('message', 'Please leave a comment and rate our book!');
         }
-        return view('User.ratepage',['book' => \App\Book::find($book_id)]);
+
+        return redirect()->route('bookrate', $book_id);
     }
 
     /**
@@ -90,13 +118,19 @@ class RateController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'newcomment' => ' required|max:250',
-            'hiddenrate' => 'required',  
-            ]);
+            'comment' => ' required|max:250'
+        ]);
+
         $rate = $request->hiddenrate;
-        $comment = $request->newcomment;
-        $user = \App\User::find(Auth::id())->rates()->updateExistingPivot($id,['rate'=>$rate ,'comment'=>$comment ,'created_at' => Carbon::now()]);
-        return view('User.ratepage',['book' => \App\Book::find($id)]);
+        $comment = $request->comment;
+        $user = \App\User::find(Auth::id())->rates()
+            ->updateExistingPivot($id, [
+                'rate' => $rate,
+                'comment' => $comment,
+                'created_at' => Carbon::now()
+            ]);
+
+        return redirect()->route('bookrate', $id);
     }
 
     /**
@@ -108,9 +142,7 @@ class RateController extends Controller
     public function destroy($id)
     {
         \App\User::find(Auth::id())->rates()->detach($id);
-        return view('User.ratepage',['book' => \App\Book::find($id)]);
 
+        return redirect()->route('bookrate', $id);
     }
-
-    
 }

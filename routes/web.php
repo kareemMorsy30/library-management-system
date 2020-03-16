@@ -38,7 +38,7 @@ Route::get('/library/home/{cat_id}', 'ListBookController@libraryByCat');
 Route::get('/libraryhome', function () {
     return view('User.libraryhome');
 });
-Route::post('/log-in', 'LoginController@authenticate'); 
+Route::post('/log-in', 'LoginController@authenticate')->name('login'); 
 Route::get('/library/home', 'ListBookController@libraryIndex')->name('home');
 
 //logout route
@@ -71,6 +71,16 @@ Route::get('/admin/all-users', function () {
 })->name("all_users")->middleware(CheckAdmin::class);
 Route::Resource('/admin/addbook','BookController')->middleware(CheckAdmin::class);
 Route::get('/admin/allbooks','ListBookController@index')->name('allbooks')->middleware(CheckAdmin::class);
+
+// Admin profile
+Route::get('/admin/profile','AdminController@editProfile')->name('edit_admin_profile')->middleware('auth');
+Route::post('/admin/profile','AdminController@updateProfile')->name('update_admin_profile')->middleware('auth');
+Route::post('/update-email', 'AdminController@updatePicture')->name('update_admin_email'); 
+
+// User profile
+Route::get('/user/profile',function() {
+    return view('User.profile');
+})->name('edit_admin_profile')->middleware('auth');
 
 // category route
 Route::Resource('category','CategoryController')->middleware(CheckAdmin::class);

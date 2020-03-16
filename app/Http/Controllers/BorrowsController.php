@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\Favourite;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,6 +20,14 @@ class BorrowsController extends Controller
     public function index()
     {
         //
+//        return Auth::user()->books_borrows()->paginate(3);
+        $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
+        $rate_arr = DB::table('rates')
+            ->select(DB::raw('avg(rate)as avg,book_id'))
+            ->where('rate', '!=', 0)
+            ->groupBy('book_id')->get();
+        $books = Auth::user()->books_borrows()->paginate(3);
+        return view('User.mybooks',['favourites'=>$favourites, 'books'=>$books , 'rates'=> $rate_arr ]);
     }
 
     /**
