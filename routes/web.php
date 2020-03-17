@@ -33,6 +33,7 @@ Route::get('/register', function () {
 // library home routes
 Route::post('/library/home', 'LoginController@authenticate'); 
 Route::get('/library/home', 'ListBookController@libraryIndex')->name("home");
+Route::get('/rate/order', 'ListBookController@orderByRate')->name("rate");
 Route::get('/library/home/{cat_id}', 'ListBookController@libraryByCat');
 Route::get('/libraryhome', function () {
     return view('User.libraryhome');
