@@ -20,7 +20,12 @@ class FavouriteController extends Controller
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
         $books = Book::all();
-        return view('books.favourite', compact('favourites', 'books'));
+        $rates = DB::table('rates')
+        ->select(DB::raw('avg(rate)as avg,book_id'))
+        ->where('rate', '!=', 0)
+        ->groupBy('book_id')->get();
+
+        return view('books.favourite', compact('favourites', 'books' ,'rates'));
       
         // return view('books.favourite',['books'=>Book::all()],compact('favourites'));
     }
@@ -47,7 +52,7 @@ class FavouriteController extends Controller
         $fav->user_id = Auth::id();
         $fav->book_id = $request->id;
         $fav->save();
-        return redirect()->route('addbook.index');
+        return redirect()->back();
  
     }
 
@@ -101,6 +106,6 @@ class FavouriteController extends Controller
             ['user_id', Auth::id()],
             ['book_id', $request->id]
         ])->delete();
-        return redirect()->route('addbook.index');
+        return redirect()->back();
     }
 }

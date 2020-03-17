@@ -33,7 +33,11 @@ Route::get('/register', function () {
 // library home routes
 Route::post('/library/home', 'LoginController@authenticate'); 
 Route::get('/library/home', 'ListBookController@libraryIndex')->name("home");
+<<<<<<< HEAD
 Route::get('/rate/order', 'ListBookController@orderByRate')->name("rate");
+=======
+
+>>>>>>> bb27199a26293a4d50dfa0b02958d5239bcae57f
 Route::get('/library/home/{cat_id}', 'ListBookController@libraryByCat');
 Route::get('/libraryhome', function () {
     return view('User.libraryhome');
@@ -54,11 +58,14 @@ Route::resource('borrows','BorrowsController');
 // rate routes
 Route::get('/user/book/{book}','RateController@index')->name('bookrate');
 Route::get('/user/book/{book}/edit','RateController@edit')->name('edit_rate');
-Route::delete('/user/book/{book}','RateController@destroy')->name('delete_rate');
+Route::delete('/user/book/{book}/rate/{rate}','RateController@destroy')->name('delete_rate');
 Route::post('/user/book','RateController@store')->name('bookRstore');
 Route::put('/user/book/{book}','RateController@update')->name('rate.update');
 
 // Admin dashboard routes
+// Dashboard  landing page
+Route::get('/dashboard/home', 'BorrowChartController@index')->middleware(CheckAdmin::class);
+
 Route::post('/admins','AdminController@store')->name('add_new_user')->middleware(CheckAdmin::class);
 Route::put('/admins/{admin}','AdminController@update')->name('update_user')->middleware(CheckAdmin::class);
 Route::delete('/admins/{admin}','AdminController@destroy')->name('delete_user')->middleware(CheckAdmin::class);
@@ -73,15 +80,23 @@ Route::Resource('/admin/addbook','BookController')->middleware(CheckAdmin::class
 Route::get('/admin/allbooks','ListBookController@index')->name('allbooks')->middleware(CheckAdmin::class);
 
 // Admin profile
-Route::get('/admin/profile','AdminController@editProfile')->name('edit_admin_profile')->middleware(CheckAdmin::class);
-Route::post('/admin/profile','AdminController@updateProfile')->name('update_admin_profile')->middleware(CheckAdmin::class);
+Route::get('/admin/profile','AdminController@editProfile')->name('edit_admin_profile')->middleware('auth');
+Route::post('/admin/profile','AdminController@updateProfile')->name('update_admin_profile')->middleware('auth');
 Route::post('/update-email', 'AdminController@updatePicture')->name('update_admin_email'); 
+
+// User profile
+Route::get('/user/profile',function() {
+    return view('User.profile');
+})->name('edit_admin_profile')->middleware('auth');
 
 // category route
 Route::Resource('category','CategoryController')->middleware(CheckAdmin::class);
 
 // remove favourite route
 Route::delete('/remove-favourite', 'FavouriteController@removeFav')->name('removeFav');
+
+
+
 
 Route::get('rate',function(){
     return view('User/ratepage');

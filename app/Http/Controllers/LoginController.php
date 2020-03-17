@@ -26,7 +26,7 @@ class LoginController extends Controller
                 return redirect('/library/home');
             }
             if(Auth::user()->privilege =="admin"){
-                return redirect('/admin/all-users');
+                return redirect('/dashboard/home');
             }
         } else {
             return redirect()->back()->with("error", "Check username or password and try again");

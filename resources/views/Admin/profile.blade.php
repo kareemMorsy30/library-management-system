@@ -56,7 +56,7 @@
 
                         <div class="profile-info">
 
-                            <h5>{{Auth::user()->full_name}}</h5>
+                            <h5>{{Auth::user()->username}}</h5>
 
                             <p>{{Auth::user()->email}}</p>
 

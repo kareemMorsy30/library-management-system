@@ -5,3 +5,11 @@ $(function() {
         $("#book_id").val($(e.relatedTarget).data('book_id'))
     });
 });
+
+
+$(function() {
+    $('#exampleModalCenter').on("show.bs.modal", function (e) {
+        $("#comment").val($(e.relatedTarget).data('comment'))
+        $("#rateId").val($(e.relatedTarget).data('id'))
+    });
+});

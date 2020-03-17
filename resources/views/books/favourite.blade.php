@@ -32,14 +32,19 @@
 
         <div class="card-body">
             <div>
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
-                <img class="rank" src="/rankicon.png">
+                @foreach ($rates as $rate)
+                @if($book->id === $rate->book_id)
+                    @for($i =1 ; $i<=5 ; $i++)
+                        @if($i<=$rate->avg)
+                            <img class="rank" src="/rank.png">
+                        @else
+                            <img class="rank" src="/rankicon.png">
+                        @endif
+                     @endfor
+                @endif    
+                @endforeach
             </div>
-              
-        
+
             <p class="card-title">{{ $book->title }}</p>
             <p class="card-text">{{ $book->author }}</p>
             <p class="card-text">{{ $book->description }}</p>
@@ -58,7 +63,7 @@
            
            
             
-            <!-- @if(in_array($book->id,$favourites))
+             @if(in_array($book->id,$favourites))
                 <form action="{{route('removeFav')}}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -71,7 +76,7 @@
                     <input type="image" id="heart" src="/heart.png"/>
                     <input type="hidden" name="id" value={{$book->id}}>
                 </form>
-            @endif -->
+            @endif 
             </div><br>
        
        <div class="card-footer">

@@ -111,7 +111,7 @@ desired effect
                 @endif
                 <p>
                   {{Auth::user()->username}} - {{Auth::user()->privilege}}
-                  <small>Member since {{date("M. Y",Auth::user()->created_at)}}</small>
+                  <small>Member since {{date("M. Y",strtotime(Auth::user()->created_at))}}</small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -167,7 +167,7 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
 <!--        <li class="header">HEADER</li>-->
         <!-- Optionally, you can add icons to the links -->
-        <li class=""><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+        <li class=""><a href="/dashboard/home"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Users</span>
             <span class="pull-right-container">
@@ -231,7 +231,7 @@ desired effect
 <script src="/dist/js/adminlte.min.js"></script>
 
 <script src="/dist/js/add-user.js"></script>
-
+@yield('scripts')
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
