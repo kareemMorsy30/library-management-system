@@ -50,7 +50,7 @@
     @endif
         <button id="lease" data-toggle="modal" data-title="{{$book->title}}" data-book_id="{{$book->id}}"
         data-target="#borrow-model" class="btn btn-success btn-sm btn-block lease"
-        {{ $book->quantity <= 0?"disabled":"" }}>Lease</button>
+        {{ ($book->quantity <= 0 || !$book->canBorrow)?"disabled":"" }}>Lease</button>
     </div>
 </div>
 

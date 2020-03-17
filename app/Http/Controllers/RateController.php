@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Book;
-use Auth;
+//use Auth;
 use App\User;
 use App\Favourite;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class RateController extends Controller
@@ -31,10 +33,20 @@ class RateController extends Controller
                 ->where('rate', '!=',0)
                 ->avg('rate'):0;
 
+        $book = Book::find($id);
+        $myBooks = Auth::user()->books_borrows()->get();
+        $book->canBorrow = true;
+        foreach ($myBooks as $myBook){
+            if($book->id === $myBook->id){
+                $book->canBorrow = false;
+                break;
+            }
+        }
+
         return view(
             'User.ratepage',
             [
-                'book' => \App\Book::find($id),
+                'book' => $book,
                 'relatedBooks' => \App\Book::all()->where('category_id', $category),
                 'rate' => $rate,
                 'user' => $user,
