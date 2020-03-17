@@ -39,7 +39,7 @@
 				</div>
 
 				<form action="{{url('log-in')}}" method="POST" class="login100-form validate-form">
-					@csrf
+					{{ csrf_field() }}
 					@if ($errors->any())
 						<div class="alert alert-danger">
 							<ul>
