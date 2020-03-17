@@ -33,6 +33,7 @@ Route::get('/register', function () {
 // library home routes
 Route::post('/library/home', 'LoginController@authenticate'); 
 Route::get('/library/home', 'ListBookController@libraryIndex')->name("home");
+
 Route::get('/library/home/{cat_id}', 'ListBookController@libraryByCat');
 Route::get('/libraryhome', function () {
     return view('User.libraryhome');
@@ -53,7 +54,7 @@ Route::resource('borrows','BorrowsController');
 // rate routes
 Route::get('/user/book/{book}','RateController@index')->name('bookrate');
 Route::get('/user/book/{book}/edit','RateController@edit')->name('edit_rate');
-Route::delete('/user/book/{book}','RateController@destroy')->name('delete_rate');
+Route::delete('/user/book/{book}/rate/{rate}','RateController@destroy')->name('delete_rate');
 Route::post('/user/book','RateController@store')->name('bookRstore');
 Route::put('/user/book/{book}','RateController@update')->name('rate.update');
 
@@ -89,6 +90,9 @@ Route::Resource('category','CategoryController')->middleware(CheckAdmin::class);
 
 // remove favourite route
 Route::delete('/remove-favourite', 'FavouriteController@removeFav')->name('removeFav');
+
+
+
 
 Route::get('rate',function(){
     return view('User/ratepage');
