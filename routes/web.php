@@ -58,6 +58,9 @@ Route::post('/user/book','RateController@store')->name('bookRstore');
 Route::put('/user/book/{book}','RateController@update')->name('rate.update');
 
 // Admin dashboard routes
+// Dashboard  landing page
+Route::get('/dashboard/home', 'BorrowChartController@index')->middleware(CheckAdmin::class);
+
 Route::post('/admins','AdminController@store')->name('add_new_user')->middleware(CheckAdmin::class);
 Route::put('/admins/{admin}','AdminController@update')->name('update_user')->middleware(CheckAdmin::class);
 Route::delete('/admins/{admin}','AdminController@destroy')->name('delete_user')->middleware(CheckAdmin::class);
