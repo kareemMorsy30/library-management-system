@@ -17,7 +17,7 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         if (Auth::check()){
-            if (Auth::user()->privilege != "admin") {
+            if (Auth::user()->privilege != "admin" || Auth::user()->privilege != "manager") {
                 return redirect('/library/home');
             }
         }else{

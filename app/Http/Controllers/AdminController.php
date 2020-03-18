@@ -6,8 +6,8 @@ use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\AdminRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -99,25 +99,25 @@ class AdminController extends Controller
     {
         $requestData = $request->all();
         $validated = array();
-        $rules = array('username' => [
-                    Rule::unique('users','username')->where(function ($query) {
-                        return $query->where('deleted_at', Null);
-                    })->ignore($id)],
+        $rules = ['username' => ['required',"unique:users,username,$id,id,deleted_at,NULL"],
             'password' => [
                     'min:8',
                     'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
                     'confirmed'
         ],
             'email' => [
-                'email:filter'
-            ]);
+                'email:filter',Rule::unique('users','email')->where(function ($query) {
+                    return $query->where('deleted_at', null);
+                })->ignore($id)
+            ]];
         foreach ($rules as $key => $value)
         {
-            if(isset($requestData[$key])){
+            if(empty($requestData[$key])&& $key !== 'password'){
                 $validated[$key] = $value;
             }
         }
         $request->validate($validated);
+
         $user = User::find($id);
         if(isset($requestData['password'])){
             $requestData['password'] = Hash::make(request()->all()['password']);
@@ -205,4 +205,6 @@ class AdminController extends Controller
         $user->save();
         return redirect()->back()->with('success' , 'User picture updated successfully');
     }
+
+
 }

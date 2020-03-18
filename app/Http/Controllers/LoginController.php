@@ -25,7 +25,7 @@ class LoginController extends Controller
             if(Auth::user()->privilege =="user"){
                 return redirect('/library/home');
             }
-            if(Auth::user()->privilege =="admin"){
+            if(Auth::user()->privilege =="admin" || Auth::user()->privilege =="manager"){
                 return redirect('/dashboard/home');
             }
         } else {
