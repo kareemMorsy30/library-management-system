@@ -52,7 +52,7 @@ Route::get('/logout', 'LoginController@logout');
 Route::resource('users','UserController');
 
 // borrow route
-Route::resource('borrows','BorrowsController');
+Route::resource('borrows','BorrowsController')->middleware('auth');
 
 
 // rate routes
@@ -93,7 +93,7 @@ Route::get('/user/profile',function() {
 Route::Resource('category','CategoryController')->middleware(CheckAdmin::class);
 
 // remove favourite route
-Route::delete('/remove-favourite', 'FavouriteController@removeFav')->name('removeFav');
+Route::delete('/remove-favourite', 'FavouriteController@removeFav')->name('removeFav')->middleware('auth');
 
 
 
@@ -102,4 +102,4 @@ Route::get('rate',function(){
     return view('User/ratepage');
 });
 
-Route::resource('Favourite','FavouriteController');
+Route::resource('Favourite','FavouriteController')->middleware('auth');

@@ -30,13 +30,19 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
+            @if(Auth::check())
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
+                <a class="dropdown-item" href="/user/profile">Profile</a>
+              <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               </div>
+            @elseif(Auth::guest())
+              <a href="/log-in" class="btn btn-outline-primary btn-sm loginBtn" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Login
+              </a>
+            @endif
             </li>
           </ul>
         </div>
