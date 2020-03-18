@@ -52,8 +52,15 @@ class BorrowsController extends Controller
         $userId = Auth::id();
         $bookId = $request->book_id;
         $numberOfDays = $request->numberOfDays;
-        User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
+        $user = User::find($userId);
         $book = Book::find($bookId);
+
+        if(count($user->books_borrows()->where('books.id', $request->book_id)->get()) > 0){
+            return redirect()->back()->with('success', "You already borrowed ".$book->title." book");
+        }
+
+        User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
+        
         $book->decrement('quantity', 1);
         return redirect('/library/home');
     }

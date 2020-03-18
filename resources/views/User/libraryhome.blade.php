@@ -2,11 +2,15 @@
 
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+@if(session()->has('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}
+    </div>
+@endif
 <div class="showCards">
     @foreach ( $books as $book )
+    <div class="flex-card card">
     <a href="{{ route('bookrate', $book->id) }}">
-        <div class="flex-card card">
             <div>
                 <img src="{{url('uploads/'.$book->pic)}}" />
             </div>
