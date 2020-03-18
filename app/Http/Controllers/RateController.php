@@ -34,12 +34,16 @@ class RateController extends Controller
                 ->avg('rate'):0;
 
         $book = Book::find($id);
-        $myBooks = Auth::user()->books_borrows()->get();
-        $book->canBorrow = true;
-        foreach ($myBooks as $myBook){
-            if($book->id === $myBook->id){
-                $book->canBorrow = false;
-                break;
+        if(!Auth::user()) {
+            $book->canBorrow = false;
+        } else {
+            $myBooks = Auth::user()->books_borrows()->get();
+            $book->canBorrow = true;
+            foreach ($myBooks as $myBook) {
+                if ($book->id === $myBook->id) {
+                    $book->canBorrow = false;
+                    break;
+                }
             }
         }
 

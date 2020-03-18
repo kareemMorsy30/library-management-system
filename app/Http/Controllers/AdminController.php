@@ -40,7 +40,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate(['username' => [
-            'required'],
+            'required','regex:/^[a-zA-Z_]+$/u','unique:users,username,NULL,id,deleted_at,NULL'],
             'password' => [
                 'required',
                 'min:8',
@@ -49,7 +49,8 @@ class AdminController extends Controller
             ],
             'email' => [
                 'required',
-                'email:filter'
+                'email:filter',
+                'unique:users,email,NULL,id,deleted_at,NULL'
             ],
             'privilege' =>[
                 'required',
@@ -57,9 +58,7 @@ class AdminController extends Controller
             ]
         ]);
         $user = new User;
-//        request()->all()->password = ;
         $request->merge(['password' => Hash::make(request()->all()['password'])]);
-//        return request()->all()['password'];
         $user->create(request()->all());
         return redirect()->route('all_users', ['users' => User::all()])->with('success', 'User added');
     }
@@ -99,7 +98,9 @@ class AdminController extends Controller
     {
         $requestData = $request->all();
         $validated = array();
-        $rules = ['username' => ['required',"unique:users,username,$id,id,deleted_at,NULL"],
+        $rules = ['username' => ['required','regex:/^[a-zA-Z_]+$/u',Rule::unique('users','username')->where(function ($query) {
+            return $query->where('deleted_at', null);
+        })->ignore($id)],
             'password' => [
                     'min:8',
                     'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
@@ -112,7 +113,7 @@ class AdminController extends Controller
             ]];
         foreach ($rules as $key => $value)
         {
-            if(empty($requestData[$key])&& $key !== 'password'){
+            if((empty($requestData[$key]) && $key !== 'password')||isset($requestData[$key])){
                 $validated[$key] = $value;
             }
         }
