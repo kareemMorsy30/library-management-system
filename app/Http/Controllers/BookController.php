@@ -142,4 +142,16 @@ class BookController extends Controller
         $book->delete();
         return redirect()->Route('allbooks');
     }
+
+    public function search($searchQuery)
+    {
+        $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
+        if($searchQuery == "NULL"){
+            $books = Book::latest()->get();
+        }else{
+            $books = Book::where('title', 'like', '%'.$searchQuery.'%')->orWhere('author', 'like', '%'.$searchQuery.'%')->latest()->get();
+        }
+        
+        return response()->json(['res' => $books, 'favourites' => $favourites]);
+    }
 }
