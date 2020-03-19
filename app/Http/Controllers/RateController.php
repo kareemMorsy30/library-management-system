@@ -75,7 +75,13 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        $validatedData = $request->validate([
+            'comment' => 'required_without:rate|max:250',
+        ],
+        [
+            'comment.required_without'
+            =>'please leave a comment or rate our book. " we appreciate if you do both :) "'
+        ]);
             $book_id = $request->id;
             $comment = $request->comment;
             $is_exsit =DB::table('rates')->where('Book_id',$book_id)
@@ -99,9 +105,6 @@ class RateController extends Controller
                             ->where('user_id',Auth::id())->update(array('rate' => $rate));
             }
 
-        }catch (\Illuminate\Database\QueryException $e){
-            Session::flash('message', 'Please leave a comment and rate our book!');
-        }
 
         return redirect()->route('bookrate', $book_id);
     }

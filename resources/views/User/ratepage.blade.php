@@ -111,7 +111,7 @@
           <tr>
           <th scope="col" colspan="2">
             {{ $comment->name }}<br>
-            <i><small>{{ date('d M Y', strtotime($comment->pivot->created_at)) }}</small></i>
+            <i><small>{{ date('d M Y  H:i:s', strtotime($comment->pivot->created_at)) }}</small></i>
             <span id="stars-container">
               @php
               $counter = 5 
@@ -133,11 +133,11 @@
         <tbody>
           <tr>
           <td> 
-            {{ $comment->pivot->comment }} 
+            {{ $comment->pivot->comment?? '........' }} 
           </td>
-          
-@if($comment->pivot->user_id === $user)
 <td>
+  @if($comment->pivot->user_id === $user)
+  <div id="form-container">
 {{------------------------------------  edit section   -----------------------------------------}}
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" 
 data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
@@ -148,8 +148,10 @@ data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
             {!! Form::open(['route'=>['delete_rate',$book->id, $comment->pivot->id],'method'=>'delete', 'class'=>' button']) !!}
             {!! Form::submit('delete',['class' =>'btn btn-danger']); !!}
             {!! Form::close() !!}
-  </td>
-@endif         
+  </div>
+  @endif 
+</td>
+        
           </tr>
         </tbody>
       </table>
