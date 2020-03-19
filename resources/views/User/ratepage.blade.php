@@ -10,11 +10,7 @@
     </div>
   </div>
     <div class="card-body">
-        <button type="submit" class="btn btn-success btn-sm" id="wishListButton" name="wishListButton" value="Add to wish list">
-            <i class="fa fa-shopping-cart"></i>
-            Add To wish List
-        </button>
-            
+       
               @if(in_array($book->id,$favourites))
                     <form action="{{route('removeFav')}}" method="POST">
                         @csrf

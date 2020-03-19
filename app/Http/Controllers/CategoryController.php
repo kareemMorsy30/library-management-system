@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 use App\Category;
 use Illuminate\Http\Request;
@@ -41,11 +43,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=>[
+                'required',
+                Rule::unique('categories')->where(function($query){
+                    return $query->where('deleted_at',NULL);
+                }),
+            ]
+        ]);
         $category = new Category();
         $category->name = $request->name;
         $category->save();
+        
        
-        return redirect()->route('category.index');
+         return redirect()->route('category.index');
+        // return redirect()->back()->with('message','name has added successfully!');
 
        
     }
@@ -70,7 +82,10 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
+
     {
+
+       
         return view('category.edit',['category_id'=>$category]);
     }
 
@@ -83,10 +98,25 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-         
+
+        $validator = Validator::make($request->all(), [
+            'name'=>[
+                        'required',
+                        Rule::unique('categories')->where(function($query){
+                            return $query->where('deleted_at',NULL);
+                        })->ignore($category),
+        ]]);
+
+        if ($validator->fails()) {
+           return redirect()->route('category.index')
+            ->withErrors($validator, 'add');
+        }
+        
         $category->name = $request->name;
         $category->save();
+       
         return \redirect()->route('category.index');
+        
     }
 
     /**
@@ -95,11 +125,16 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
           
-        $category= Category::find($id);
+        // $category= Category::find($id);
         $category->delete();
+        foreach($category->books as $book)
+        {
+            $book->delete();
+        }
+        
         return redirect()->route('category.index');
     }
 }
