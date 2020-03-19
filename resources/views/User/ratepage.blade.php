@@ -55,7 +55,7 @@
 <div class="row">
     <div class="form-group comment">
         <textarea name="comment" class="form-control" rows="4" cols="110" placeholder="Your Comment..." form="form"></textarea>
-        <a class="btn btn-primary btn-sm btn-block" href="#">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
+        <a class="btn btn-primary btn-sm btn-block">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
     </div>
     
     <div class="rankwithcomment">
@@ -116,7 +116,7 @@
           <tr>
           <th scope="col" colspan="2">
             {{ $comment->name }}<br>
-            <i><small>{{ $comment->pivot->created_at }}</small></i>
+            <i><small>{{ date('d M Y', strtotime($comment->pivot->created_at)) }}</small></i>
             <span id="stars-container">
               @php
               $counter = 5 
