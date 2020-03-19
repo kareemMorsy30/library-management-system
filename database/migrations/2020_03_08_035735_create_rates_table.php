@@ -38,8 +38,10 @@ class CreateRatesTable extends Migration
      */
     public function down()
     {
-        $table->dropForeign('rates_user_id_foreign');
-        $table->dropForeign('rates_book_id_foreign');
-        Schema::dropIfExists('rates');
+        Schema::table('rates', function (Blueprint $table) {
+            $table->dropForeign('rates_user_id_foreign');
+            $table->dropForeign('rates_book_id_foreign');
+            Schema::dropIfExists('rates');
+        });
     }
 }
