@@ -22,17 +22,17 @@
               <a href="{{ url('/library/home') }}" id="allbooks" class="btn btn-outline-primary btn-sm">All Books</a>
             </li>
             <li class="nav-item active">
-              <a href="#" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
+              <a href="{{route('borrows.index')}}" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
             </li>
             <li class="nav-item">
-              <a href="#" id="favourites" class="btn btn-outline-primary btn-sm">Favourites</a>
+              <a href="/Favourite" id="favourites" class="btn btn-outline-primary btn-sm">Favourites</a>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
             @if(Auth::check())
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ Auth::user()->name }}
+                {{ Auth::user()->username }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/user/profile">Profile</a>
