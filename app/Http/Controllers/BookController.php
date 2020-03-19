@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Borrow;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -91,6 +93,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
+        $this->returnBooks();
         $category = \App\Category::pluck('name', 'id');
         return view('books.editBook',['book' => \App\Book::find($id) ,'category' => compact('category')]);
     }
@@ -104,6 +107,7 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        $this->returnBooks();
         $book = \App\Book::find($id);
         $validatedData = $request->validate([
             'title' => 'required|regex :/[a-zA-Z0-9\s]+/|unique:books,title,'.$id.',id,deleted_at,NULL',
@@ -138,6 +142,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
+//        $this->returnBooks();
         $book = \App\Book::find($id);
         $book->delete();
         return redirect()->Route('allbooks');
@@ -145,6 +150,7 @@ class BookController extends Controller
 
     public function search($searchQuery)
     {
+        $this->returnBooks();
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
         if($searchQuery == "NULL"){
             $books = Book::latest()->get();
@@ -153,5 +159,20 @@ class BookController extends Controller
         }
         
         return response()->json(['res' => $books, 'favourites' => $favourites]);
+    }
+
+    public function returnBooks() {
+
+        $books = Book::all();
+        foreach ($books as $book) {
+            foreach ($book->users_borrows()->get() as $borrow) {
+                $returnDate = $borrow->pivot->return_back;
+                if(Carbon::now()->diffInMinutes($returnDate) <= 0 ) {
+                    $book->increment('quantity', 1);
+                    $id = $borrow->pivot->id;
+                    Borrow::find($id)->delete();
+                }
+            }
+        }
     }
 }

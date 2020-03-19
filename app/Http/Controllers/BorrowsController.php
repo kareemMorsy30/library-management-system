@@ -59,10 +59,14 @@ class BorrowsController extends Controller
             return redirect()->back()->with('success', "You already borrowed ".$book->title." book");
         }
 
+        if(!$book || $book->quantity <= 0) {
+            return redirect('/library/home')->with("errors","can not borrow this book");
+        }
+
         User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
         
         $book->decrement('quantity', 1);
-        return redirect('/library/home');
+        return redirect('/library/home')->with("success","borrow is done successfully");
     }
 
     /**

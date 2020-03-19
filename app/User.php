@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function books_borrows()
     {
-        return $this->belongsToMany('App\Book','borrows','user_id','book_id');
+        return $this->belongsToMany('App\Book','borrows','user_id','book_id')->withPivot('id')->whereNull('borrows.deleted_at')->withTimestamps();
     }
 
     public function rates()

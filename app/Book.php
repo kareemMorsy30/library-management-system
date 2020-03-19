@@ -17,7 +17,7 @@ class Book extends Model
 
     public function users_borrows()
     {
-        return $this->belongsToMany('App\User','borrows','book_id','user_id');
+        return $this->belongsToMany('App\User','borrows','book_id','user_id')->withPivot('return_back','id')->whereNull('borrows.deleted_at')->withTimestamps();
     }
 
     public function rate()

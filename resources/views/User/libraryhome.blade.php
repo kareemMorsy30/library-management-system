@@ -7,6 +7,11 @@
         {{ session()->get('success') }}
     </div>
 @endif
+@if(session()->has('errors'))
+    <div class="alert alert-danger">
+        {{ session()->get('errors') }}
+    </div>
+@endif
 <div class="showCards">
     @foreach ( $books as $book )
     <div class="flex-card card">
