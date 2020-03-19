@@ -19,8 +19,7 @@ class ListBookController extends Controller
     public function libraryByCat($cat_id)
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
-        $books = DB::table('books')
-                    ->where('category_id',$cat_id)
+        $books = Book::where('category_id',$cat_id)
                     ->orderBy('created_at','asc')->paginate(3);
 
             foreach ($books as $book) {
@@ -49,7 +48,7 @@ class ListBookController extends Controller
     public function libraryIndex()
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
-        $books = DB::table('books')->orderBy('created_at','desc')->paginate(3);
+        $books = Book::orderBy('created_at','desc')->paginate(3);
         foreach ($books as $book) {
             if(!Auth::user()) {
                 $book->canBorrow = false;
