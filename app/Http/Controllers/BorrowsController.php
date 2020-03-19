@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\Borrow;
 use App\Favourite;
 use App\User;
 use Carbon\Carbon;
@@ -20,6 +21,7 @@ class BorrowsController extends Controller
     public function index()
     {
         //
+        $this->returnBooks();
 //        return Auth::user()->books_borrows()->paginate(3);
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
         $rate_arr = DB::table('rates')
@@ -113,5 +115,22 @@ class BorrowsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function returnBooks() {
+
+        $books = Book::all();
+        foreach ($books as $book) {
+            foreach ($book->users_borrows()->get() as $borrow) {
+//                return $book->users_borrows()->get();
+                $returnDate = $borrow->pivot->return_back;
+//                return Carbon::now()->diffInMinutes(Carbon::parse($returnDate),false);
+                if(Carbon::now()->diffInMinutes(Carbon::parse($returnDate),false) <= 0 ) {
+                    $book->increment('quantity', 1);
+                    $id = $borrow->pivot->id;
+                    Borrow::find($id)->delete();
+                }
+            }
+        }
     }
 }
