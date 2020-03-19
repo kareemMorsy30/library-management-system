@@ -35,42 +35,50 @@
                 <table>
                     <tr>
                         <th><label>Username <small>(<em>required</em>)</small></label></th>
-                        <td><input type="text" name="username" required></td>
+                        <td><input type="text" name="username" value="{{ old('username') }}" required></td>
                     </tr>
                     <tr>
                         <th><label>Email <small>(<em>required</em>)</small></label></th>
-                        <td><input type="email" name="email" required></td>
+                        <td><input type="email" name="email" value="{{ old('email') }}" required></td>
                     </tr>
                     <tr>
                         <th><label>Name</label></th>
-                        <td><input type="text" name="name"></td>
+                        <td><input type="text" name="name" value="{{ old('name') }}"></td>
                     </tr>
                     <tr>
                         <th><label>Address</label></th>
-                        <td><input type="text" name="address"></td>
+                        <td><input type="text" name="address" value="{{ old('address') }}"></td>
                     </tr>
                     <tr>
                         <th><label>Phone</label></th>
-                        <td><input type="text" name="phone" required></td>
+                        <td><input type="text" name="phone" value="{{ old('phone') }}" required></td>
                     </tr>
                     <tr>
                         <th><label>Password <small>(<em>required</em>)</small></label></th>
-                        <td><input id="password" onkeyup="passwordOneCheck();" type="password" name="password" required></td>
+                        <td><input id="password" onkeyup="passwordOneCheck();" type="password" name="password" value="{{ old('password') }}" required></td>
                     </tr>
                     <tr>
                         <th><label>Repeat Password <small>(<em>required</em>)</small></label></th>
                         <td>
-                            <input id="rep-password" onkeyup="passwordCheck();" type="password" name="password_confirmation" required>
+                            <input id="rep-password" onkeyup="passwordCheck();" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" required>
                             <div id="message"></div>
                         </td>
                     </tr>
                     <tr>
                         <th>Privilege</th>
                         <td>
+                        @if(!empty(old('privilege')))
+                            <input type="radio" id="user" name="privilege" value="user" @if(old('privilege') == 'user') checked @endif>
+                            <label for="user">User</label><br>
+                            <input type="radio" id="manager" name="privilege" value="manager" @if(old('privilege') == 'manager') checked @endif>
+                            <label for="manager">Manager</label><br>
+                        @else
                             <input type="radio" id="user" name="privilege" value="user" checked>
                             <label for="user">User</label><br>
                             <input type="radio" id="manager" name="privilege" value="manager">
                             <label for="manager">Manager</label><br>
+                        @endif
+
                         </td>
                     </tr>
                 </table>
