@@ -20,31 +20,38 @@
             </div>
             
             @endif
+            
+            
+
+            <div id="flex">
             @foreach ( $books as $book )
             <div class="flex-card">
-                <div class="title">{{ $book->title }}</div>
+
                 <div>
                     <img src= {{url('uploads/'.$book->pic)}} />
                 </div>
+                <div class="title">{{ $book->title }}</div>
                 <div class="text">Author : {{ $book->author }}</div>
-                <div>Category : {{ $book->category->name }}</div>
+                <div>Category : {{ $book->category->name ?? 'N/A'}}</div>
                 <div class="text">Description : {{ $book->description }}</div>
                 <div class="text">Price : {{ $book->price }} , Qty : {{ $book->quantity }}</div>
                 <div>
-                    {!! Form::open(['route'=>['addbook.edit',$book->id],'method'=>'get']) !!}
-                    {!! Form::submit('Edit'); !!}
+                    {!! Form::open(['route'=>['addbook.edit',$book->id],'method'=>'get','class' => 'foo']) !!}
+                    {!! Form::submit('Edit',['class'=>'btnfoo']); !!}
                     {!! Form::close() !!}
 
-                    {!! Form::open(['route'=>['addbook.destroy',$book->id],'method'=>'delete']) !!}
-                    {!! Form::submit('delete'); !!}
+                    {!! Form::open(['route'=>['addbook.destroy',$book->id],'method'=>'delete','class' => 'foo'] ) !!}
+                    {!! Form::submit('delete',['class'=>'btnfoo']); !!}
                     {!! Form::close() !!}
                     
                 </div>
             </div>
             @endforeach
-           </div>
-        </div>
+            </div>
+      </div>
+   </div>
 </div>
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

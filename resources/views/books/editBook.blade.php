@@ -37,19 +37,19 @@
 
                     <tr>
                         <th><label>description</label></th>
-                    <td><textarea name="description" rows="3" cols="42"> {{ $book->description }}</textarea></td>
+                    <td><textarea name="description" rows="3" cols="55"> {{ $book->description }}</textarea></td>
                     </tr>
                         <tr>@if ($errors->any())<td>{{ $errors->first('description') }} </td>@endif</tr>
                     
                     <tr>
                         <th><label>Quantity<small> (<em>required</em>)</small></label></th>
-                        <td>{!! Form::number('quantity', $book->quantity); !!}</td>
+                        <td>{!! Form::number('quantity' ,$book->quantity,['min' => '0']); !!}</td>
                     </tr>
                     <tr>@if ($errors->any())<td>{{ $errors->first('quantity') }} </td>@endif</tr>
 
                     <tr>
                         <th><label>Price <small>(<em>required</em>)</small></label></th>
-                        <td>{!! Form::number('price' , $book->price); !!}</td>
+                        <td>{!! Form::number('price',$book->price,['min' => '0','step' =>'0.01']); !!}</td>
                     </tr>
                     <tr>@if ($errors->any())<td>{{ $errors->first('price') }} </td>@endif</tr>
 

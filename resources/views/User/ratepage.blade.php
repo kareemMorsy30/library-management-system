@@ -29,9 +29,7 @@
                         <input type="hidden" name="id" value={{$book->id}}>
                     </form>
                     @endif
-                       <p class="card-title title">Book Title</p>
-                
-             
+
     <p class="card-title title">{{ $book->title }}</p>
         <div >
           @for($i =1 ; $i<=5 ; $i++)
@@ -42,7 +40,7 @@
           @endif
           @endfor
         </div>
-        <p class="card-text col-md-6">{{$book->description }}</p>
+        <p class="card-text col-md-6">{{ $book->description }}</p>
         @if($book->quantity <= 0)
         <button class="btn btn-danger btn-sm" style="border-radius: 15px;margin-bottom: 20px" disabled>no copies available</button>
     @else

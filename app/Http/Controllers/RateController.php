@@ -26,12 +26,12 @@ class RateController extends Controller
         $favourites = Favourite::where('user_id', Auth::id())->pluck('book_id')->toArray();
         $category = \App\Book::find($id)->category_id; 
         $user = Auth::id();
-        $rate =DB::table('rates')
+        $rate =round(DB::table('rates')
                 ->where('book_id',$id)
                 ->avg('rate') !== null ? DB::table('rates')
                 ->where('book_id',$id)
                 ->where('rate', '!=',0)
-                ->avg('rate'):0;
+                ->avg('rate'):0);
 
         $book = Book::find($id);
         if(Auth::check()){

@@ -47,8 +47,8 @@ class BookController extends Controller
             'title' => 'required|regex :/[a-zA-Z0-9\s]+/|unique:books,title,NULL,id,deleted_at,NULL',
             'author' => 'required| regex: /^[\pL\s]+$/u',
             'description' => 'regex :/[a-zA-Z0-9\s]+/|max:150',
-            'quantity' => 'required | numeric | max:100',
-            'price' => 'required | numeric | max : 1000',
+            'quantity' => 'required | integer | max:100|min:0',
+            'price' => 'required | numeric | max : 1000|min:0',
             'category' => 'required',
             'pic' => 'mimes:jpeg,bmp,png|max:2048'      
             ]);
@@ -109,8 +109,8 @@ class BookController extends Controller
             'title' => 'required|regex :/[a-zA-Z0-9\s]+/|unique:books,title,'.$id.',id,deleted_at,NULL',
             'author' => 'required| regex: /^[\pL\s]+$/u',
             'description' => 'regex :/[a-zA-Z0-9\s]+/|max:150',
-            'quantity' => 'required | numeric | max:100',
-            'price' => 'required | numeric | max : 1000',
+            'quantity' => 'required | integer | max:100|min:0',
+            'price' => 'required | numeric | max : 1000|min:0',
             'category' => 'required',
             'pic' => 'mimes:jpeg,bmp,png|max:2048'          
             ]);

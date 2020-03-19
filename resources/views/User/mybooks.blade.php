@@ -17,7 +17,7 @@
                     @foreach ($rates as $rate)
                         @if($book->id === $rate->book_id)
                             @for($i =1 ; $i<=5 ; $i++)
-                                @if($i<=$rate->avg)
+                                @if($i<=round($rate->avg))
                                     <img class="rank" src="/rank.png">
                                 @else
                                     <img class="rank" src="/rankicon.png">
