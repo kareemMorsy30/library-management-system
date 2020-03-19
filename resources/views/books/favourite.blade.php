@@ -4,6 +4,7 @@
 
 @section('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -80,7 +81,9 @@
             </div><br>
        
        <div class="card-footer">
-           <button id="lease" class="btn btn-success btn-sm btn-block lease">Lease</button>
+           <button id="lease" data-toggle="modal" data-title="{{$book->title}}" data-book_id="{{$book->id}}"
+                   data-target="#borrow-model" class="btn btn-success btn-sm btn-block lease"
+                   {{ ($book->quantity <= 0 || !$book->canBorrow)?"disabled":"" }}>Lease</button>
        </div>
    </div>
             @endif
@@ -92,10 +95,49 @@
 </div>          
 </div>
 
-</div>                          
-                        
-                     
+</div>
+    <script src="{{asset('js/library_home.js')}}"> </script>
                      
                         
 
  @endsection
+
+
+    <div class="modal fade" id="borrow-model"
+         tabindex="-1" role="dialog"
+         aria-labelledby="borrowModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-flex flex-row align-self-start">
+                    <button type="button" class="close mr-1"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"
+                        id="borrowModalLabel"></h4>
+                </div>
+                <form method="post" action="{{ route('borrows.store') }}">
+                    @csrf
+                    <input name="book_id" id="book_id" hidden/>
+                    <div class="modal-body">
+                        <p>
+                            Please confirm you would like to borrow
+                            <b><span id="book-title"></span></b>
+                            for <input name="numberOfDays" type="number" class="w-25 d-inline" min="1" value="1"/> days
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-default"
+                                data-dismiss="modal">Close</button>
+                        <span class="pull-right">
+          <button type="submit" class="btn btn-success">
+            Borrow
+          </button>
+        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+

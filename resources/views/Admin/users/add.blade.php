@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <th><label>Phone</label></th>
-                        <td><input type="text" name="phone"></td>
+                        <td><input type="text" name="phone" required></td>
                     </tr>
                     <tr>
                         <th><label>Password <small>(<em>required</em>)</small></label></th>
@@ -72,12 +72,6 @@
                             <input type="radio" id="manager" name="privilege" value="manager">
                             <label for="manager">Manager</label><br>
                         </td>
-                    </tr>
-                    <tr>
-                        <th><label>Send Password?</label></th>
-                        <td><label class="check"><input class="checkb" type="checkbox" name="send-password" value="send">
-                            Send this password to the new user by email.
-                        </label></td>
                     </tr>
                 </table>
                 <button class="submit" type="submit" >Submit</button>

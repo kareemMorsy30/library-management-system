@@ -23,6 +23,21 @@ class ListBookController extends Controller
                     ->where('category_id',$cat_id)
                     ->orderBy('created_at','asc')->paginate(3);
 
+            foreach ($books as $book) {
+                if(!Auth::user()) {
+                    $book->canBorrow = false;
+                } else {
+                    $myBooks = Auth::user()->books_borrows()->get();
+                    $book->canBorrow = true;
+                    foreach ($myBooks as $myBook){
+                        if($book->id === $myBook->id){
+                            $book->canBorrow = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
         $rate_arr = DB::table('rates')
                     ->select(DB::raw('avg(rate)as avg,book_id'))
                     ->where('rate', '!=', 0)
@@ -49,8 +64,7 @@ class ListBookController extends Controller
                 }
             }
         }
-//        return $books;
-//        return $borrows;
+
         $rate_arr = DB::table('rates')
                     ->select(DB::raw('avg(rate)as avg,book_id'))
                     ->where('rate', '!=', 0)
@@ -74,6 +88,20 @@ class ListBookController extends Controller
             ->whereColumn('book_id','books.id')
             ->orderBy('rate','desc')
             )->paginate(3);
+        foreach ($books as $book) {
+            if(!Auth::user()) {
+                $book->canBorrow = false;
+            } else {
+                $myBooks = Auth::user()->books_borrows()->get();
+                $book->canBorrow = true;
+                foreach ($myBooks as $myBook){
+                    if($book->id === $myBook->id){
+                        $book->canBorrow = false;
+                        break;
+                    }
+                }
+            }
+        }
         // return $books;
         return view('User.libraryhome',['books'=>$books,'rates'=>$rate_arr,'favourites'=>$favourites]);
     }
