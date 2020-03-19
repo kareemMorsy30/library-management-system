@@ -26,20 +26,23 @@ class RateController extends Controller
         $favourites = Favourite::where('user_id', Auth::id())->pluck('book_id')->toArray();
         $category = \App\Book::find($id)->category_id; 
         $user = Auth::id();
-        $rate =DB::table('rates')
+        $rate =round(DB::table('rates')
                 ->where('book_id',$id)
                 ->avg('rate') !== null ? DB::table('rates')
                 ->where('book_id',$id)
                 ->where('rate', '!=',0)
-                ->avg('rate'):0;
+                ->avg('rate'):0);
 
         $book = Book::find($id);
-        $myBooks = Auth::user()->books_borrows()->get();
-        $book->canBorrow = true;
-        foreach ($myBooks as $myBook){
-            if($book->id === $myBook->id){
-                $book->canBorrow = false;
-                break;
+        if(Auth::check()){
+            $myBooks = Auth::user()->books_borrows()->get();
+
+            $book->canBorrow = true;
+            foreach ($myBooks as $myBook){
+                if($book->id === $myBook->id){
+                    $book->canBorrow = false;
+                    break;
+                }
             }
         }
 
@@ -72,7 +75,13 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        $validatedData = $request->validate([
+            'comment' => 'required_without:rate|max:250',
+        ],
+        [
+            'comment.required_without'
+            =>'please leave a comment or rate our book. " we appreciate if you do both :) "'
+        ]);
             $book_id = $request->id;
             $comment = $request->comment;
             $is_exsit =DB::table('rates')->where('Book_id',$book_id)
@@ -96,9 +105,6 @@ class RateController extends Controller
                             ->where('user_id',Auth::id())->update(array('rate' => $rate));
             }
 
-        }catch (\Illuminate\Database\QueryException $e){
-            Session::flash('message', 'Please leave a comment and rate our book!');
-        }
 
         return redirect()->route('bookrate', $book_id);
     }

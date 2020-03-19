@@ -25,9 +25,7 @@
                         <input type="hidden" name="id" value={{$book->id}}>
                     </form>
                     @endif
-                       <p class="card-title title">Book Title</p>
-                
-             
+
     <p class="card-title title">{{ $book->title }}</p>
         <div >
           @for($i =1 ; $i<=5 ; $i++)
@@ -38,7 +36,7 @@
           @endif
           @endfor
         </div>
-        <p class="card-text col-md-6">{{$book->description }}</p>
+        <p class="card-text col-md-6">{{ $book->description }}</p>
         @if($book->quantity <= 0)
         <button class="btn btn-danger btn-sm" style="border-radius: 15px;margin-bottom: 20px" disabled>no copies available</button>
     @else
@@ -53,7 +51,7 @@
 <div class="row">
     <div class="form-group comment">
         <textarea name="comment" class="form-control" rows="4" cols="110" placeholder="Your Comment..." form="form"></textarea>
-        <a class="btn btn-primary btn-sm btn-block" href="#">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
+        <a class="btn btn-primary btn-sm btn-block">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
     </div>
     
     <div class="rankwithcomment">
@@ -114,7 +112,7 @@
           <tr>
           <th scope="col" colspan="2">
             {{ $comment->name }}<br>
-            <i><small>{{ $comment->pivot->created_at }}</small></i>
+            <i><small>{{ date('d M Y  H:i:s', strtotime($comment->pivot->created_at)) }}</small></i>
             <span id="stars-container">
               @php
               $counter = 5 
@@ -136,11 +134,11 @@
         <tbody>
           <tr>
           <td> 
-            {{ $comment->pivot->comment }} 
+            {{ $comment->pivot->comment?? '........' }} 
           </td>
-          
-@if($comment->pivot->user_id === $user)
 <td>
+  @if($comment->pivot->user_id === $user)
+  <div id="form-container">
 {{------------------------------------  edit section   -----------------------------------------}}
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" 
 data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
@@ -151,8 +149,10 @@ data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
             {!! Form::open(['route'=>['delete_rate',$book->id, $comment->pivot->id],'method'=>'delete', 'class'=>' button']) !!}
             {!! Form::submit('delete',['class' =>'btn btn-danger']); !!}
             {!! Form::close() !!}
-  </td>
-@endif         
+  </div>
+  @endif 
+</td>
+        
           </tr>
         </tbody>
       </table>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\Borrow;
 use App\Favourite;
 use App\User;
 use Carbon\Carbon;
@@ -20,6 +21,7 @@ class BorrowsController extends Controller
     public function index()
     {
         //
+        $this->returnBooks();
 //        return Auth::user()->books_borrows()->paginate(3);
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
         $rate_arr = DB::table('rates')
@@ -52,10 +54,21 @@ class BorrowsController extends Controller
         $userId = Auth::id();
         $bookId = $request->book_id;
         $numberOfDays = $request->numberOfDays;
-        User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
+        $user = User::find($userId);
         $book = Book::find($bookId);
+
+        if(count($user->books_borrows()->where('books.id', $request->book_id)->get()) > 0){
+            return redirect()->back()->with('success', "You already borrowed ".$book->title." book");
+        }
+
+        if(!$book || $book->quantity <= 0) {
+            return redirect('/library/home')->with("errors","can not borrow this book");
+        }
+
+        User::find($userId)->books_borrows()->attach($bookId,['return_back'=> Carbon::now()->addDays($numberOfDays)]);
+        
         $book->decrement('quantity', 1);
-        return redirect('/library/home');
+        return redirect('/library/home')->with("success","borrow is done successfully");
     }
 
     /**
@@ -102,5 +115,22 @@ class BorrowsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function returnBooks() {
+
+        $books = Book::all();
+        foreach ($books as $book) {
+            foreach ($book->users_borrows()->get() as $borrow) {
+//                return $book->users_borrows()->get();
+                $returnDate = $borrow->pivot->return_back;
+//                return Carbon::now()->diffInMinutes(Carbon::parse($returnDate),false);
+                if(Carbon::now()->diffInMinutes(Carbon::parse($returnDate),false) <= 0 ) {
+                    $book->increment('quantity', 1);
+                    $id = $borrow->pivot->id;
+                    Borrow::find($id)->delete();
+                }
+            }
+        }
     }
 }

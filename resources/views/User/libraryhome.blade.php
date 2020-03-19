@@ -2,11 +2,20 @@
 
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+@if(session()->has('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}
+    </div>
+@endif
+@if(session()->has('errors'))
+    <div class="alert alert-danger">
+        {{ session()->get('errors') }}
+    </div>
+@endif
 <div class="showCards">
     @foreach ( $books as $book )
+    <div class="flex-card card">
     <a href="{{ route('bookrate', $book->id) }}">
-        <div class="flex-card card">
             <div>
                 <img src="{{url('uploads/'.$book->pic)}}" />
             </div>
@@ -17,7 +26,7 @@
             @foreach ($rates as $rate)
             @if($book->id === $rate->book_id)
                 @for($i =1 ; $i<=5 ; $i++)
-                    @if($i<=$rate->avg)
+                    @if($i<=round($rate->avg))
                         <img class="rank" src="/rank.png">
                     @else
                         <img class="rank" src="/rankicon.png">

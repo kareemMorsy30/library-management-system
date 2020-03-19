@@ -40,7 +40,7 @@
                         </tr>
                         <tr>
                             <th><label>Email <small>(<em>required</em>)</small></label></th>
-                            <td><input type="text" name="email" value="{{ $user->email }}" required></td>
+                            <td><input type="email" name="email" value="{{ $user->email }}" ></td>
                         </tr>
                         <tr>
                             <th><label>Name</label></th>
@@ -64,21 +64,6 @@
                                 <input id="rep-password" onkeyup="passwordCheck();" type="password" name="password_confirmation" >
                                 <div id="message"></div>
                             </td>
-                        </tr>
-                       {{-- <tr>
-                            <th>Privilege</th>
-                            <td>
-                                <input type="radio" id="user" name="privilege" value="user" @if ($user->privilege == 'user'){{ 'checked' }}@endif>
-                                <label for="user">User</label><br>
-                                <input type="radio" id="manager" name="privilege" value="manager" @if ($user->privilege == 'manager'){{ 'checked' }}@endif>
-                                <label for="manager">Manager</label><br>
-                            </td>
-                        </tr>--}}
-                        <tr>
-                            <th><label>Send Password?</label></th>
-                            <td><label class="check"><input class="checkb" type="checkbox" name="send-password" value="send">
-                                    Send this password to the new user by email.
-                                </label></td>
                         </tr>
                     </table>
                     <button class="submit" type="submit" >Submit</button>

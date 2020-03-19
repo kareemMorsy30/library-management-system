@@ -77,7 +77,6 @@ body {
 #flex{
     display: flex;
     flex-wrap: wrap;
-    width: 100vw;
 }
 .flex-card{
     background-color:white;
@@ -85,15 +84,16 @@ body {
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    width: 24rem;
-    height: 460px;
-    margin: 15px;
+    width: 25rem;
+    height: 440px;
+    margin: 0px 30px;
+    margin-bottom: 40px;
     padding:0 5px 5px;
 }
 
 img{
-    width: 24rem;
-    height: 190px;
+    width: 25rem;
+    height: 200px;
     align-self: flex-start;
 }
 
@@ -103,12 +103,18 @@ img{
     font-size: 1.5em;
 }
 
-.button {
+.btnfoo {
 display: inline-block;
 margin: 10px 5px 0;
-
+padding: 5px;
 }
 
 .text{
     margin: 2px 0;
 }
+
+.foo{
+    display: inline-block;
+    margin-top: 10px;
+}
+

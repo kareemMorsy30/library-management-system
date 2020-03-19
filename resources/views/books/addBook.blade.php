@@ -41,19 +41,19 @@
                     <tr>@if ($errors->any())<td>{{ $errors->first('author') }} </td>@endif</tr>
                     <tr>
                         <th><label>description</label></th>
-                        <td><textarea name="description" rows="3" cols="42"></textarea></td>
+                        <td><textarea name="description" rows="3" cols="55"></textarea></td>
                     </tr>
                         <tr>@if ($errors->any())<td>{{ $errors->first('description') }} </td>@endif</tr>
                     
                     <tr>
                         <th><label>Quantity<small> (<em>required</em>)</small></label></th>
-                        <td>{!! Form::number('quantity'); !!}</td>
+                        <td>{!! Form::number('quantity' ,'',['min' => '0']); !!}</td>
                     </tr>
                     <tr>@if ($errors->any())<td>{{ $errors->first('quantity') }} </td>@endif</tr>
 
                     <tr>
                         <th><label>Price <small>(<em>required</em>)</small></label></th>
-                        <td>{!! Form::number('price'); !!}</td>
+                        <td>{!! Form::number('price','',['min' => '0','step' =>'0.01']); !!}</td>
                     </tr>
                     <tr>@if ($errors->any())<td>{{ $errors->first('price') }} </td>@endif</tr>
 

@@ -22,21 +22,30 @@
               <a href="{{ url('/library/home') }}" id="allbooks" class="btn btn-outline-primary btn-sm">All Books</a>
             </li>
             <li class="nav-item active">
-              <a href="#" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
+              <a href="{{route('borrows.index')}}" id="myBooks" class="btn btn-outline-primary btn-sm">My Books</a>
             </li>
             <li class="nav-item">
-              <a href="#" id="favourites" class="btn btn-outline-primary btn-sm">Favourites</a>
+              <a href="/Favourite" id="favourites" class="btn btn-outline-primary btn-sm">Favourites</a>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
+            @if(Auth::check())
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ Auth::user()->name }}
+                {{ Auth::user()->username }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
+                <a class="dropdown-item" href="/user/profile">Profile</a>
+                @if(Auth::user()->privilege == 'admin' || Auth::user()->privilege == 'manager')
+                  <a class="dropdown-item" href="/dashboard/home">Dashboard</a>
+                @endif
+              <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               </div>
+            @elseif(Auth::guest())
+              <a href="/log-in" class="btn btn-outline-primary btn-sm loginBtn" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Login
+              </a>
+            @endif
             </li>
           </ul>
         </div>

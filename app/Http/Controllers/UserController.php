@@ -38,11 +38,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-//        return $request;
-        $request->validate([
-            'username' => [
-
-        ],
+        $request->validate(['username' => [
+            'required','regex:/^[a-zA-Z_]+$/u','unique:users,username,NULL,id,deleted_at,NULL'],
             'password' => [
                 'required',
                 'min:8',
@@ -51,17 +48,23 @@ class UserController extends Controller
             ],
             'email' => [
                 'required',
-                'email:filter'
+                'email:filter',
+                'unique:users,email,NULL,id,deleted_at,NULL'
             ],
             'privilege' =>[
                 Rule::in(['user'])
+            ],
+            'phone' => [
+                'required',
+                'starts_with:012,010,011',
+                'digits:11',
+                'size:11',
+                'unique:users,phone,NULL,id,deleted_at,NULL'
             ]
         ]);
         $user = new User;
-//        request()->all()->password = ;
         $request->merge(['password' => Hash::make(request()->all()['password'])]);
         $request->merge(['privilege' => 'user']);
-//        return request()->all()['password'];
         $user->create(request()->all());
         return view('Login.login');
     }
