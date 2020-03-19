@@ -125,8 +125,10 @@ class ListBookController extends Controller
         $books = Book::all();
         foreach ($books as $book) {
             foreach ($book->users_borrows()->get() as $borrow) {
+//                return $book->users_borrows()->get();
                 $returnDate = $borrow->pivot->return_back;
-                if(Carbon::now()->diffInMinutes($returnDate) <= 0 ) {
+//                return Carbon::now()->diffInMinutes(Carbon::parse($returnDate),false);
+                if(Carbon::now()->diffInMinutes(Carbon::parse($returnDate),false) <= 0 ) {
                     $book->increment('quantity', 1);
                     $id = $borrow->pivot->id;
                     Borrow::find($id)->delete();
