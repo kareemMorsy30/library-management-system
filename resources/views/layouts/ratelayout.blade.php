@@ -36,6 +36,9 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/user/profile">Profile</a>
+                @if(Auth::user()->privilege == 'admin' || Auth::user()->privilege == 'manager')
+                  <a class="dropdown-item" href="/dashboard/home">Dashboard</a>
+                @endif
               <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               </div>
             @elseif(Auth::guest())
