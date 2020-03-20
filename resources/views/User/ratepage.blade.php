@@ -160,7 +160,7 @@ data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
 
 
 
-{{------------------------------------ related books  -----------------------------------------}}
+{{------------------------------------ related books  -----------------------------------------}} 
 <div class="row related">
     <p class="title">Related Books</p>
 </div>
@@ -263,5 +263,4 @@ data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
       </div>
     </div>
   </div>
-</div>        
-
+</div>  
