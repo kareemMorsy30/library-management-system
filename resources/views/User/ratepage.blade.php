@@ -134,7 +134,7 @@
         <tbody>
           <tr>
           <td> 
-            {{ $comment->pivot->comment?? '........' }} 
+            {{ $comment->pivot->comment?? '.....' }} 
           </td>
 <td>
   @if($comment->pivot->user_id === $user)
@@ -247,7 +247,7 @@ data-id="{{ $comment->pivot->id }}" data-comment="{{$comment->pivot->comment}}">
       <div class="modal-body">
       {{-- form --}}
 {!! Form::open(['route'=>['rate.update',$book->id],'method'=>'put' , 'id' =>'hiddenform']) !!}
-      {{ Form::hidden('hiddenrate','0') }}
+      {{ Form::hidden('hiddenrate') }}
       {{ Form::hidden('rateId','',['id'=>'rateId']) }}
       <div class="ratestar">
         @for($i=0; $i<5 ; $i++)

@@ -82,28 +82,37 @@ class RateController extends Controller
             'comment.required_without'
             =>'please leave a comment or rate our book. " we appreciate if you do both :) "'
         ]);
+
             $book_id = $request->id;
             $comment = $request->comment;
-            $is_exsit =DB::table('rates')->where('Book_id',$book_id)
-                        ->where('user_id',Auth::id())->exists();
+            $table_rate =DB::table('rates')->where('Book_id',$book_id)->where('user_id',Auth::id());
+            $table_comment =DB::table('rates')->where('Book_id',$book_id)
+            ->where('user_id',Auth::id())->where('comment',null)->exists() ;
 
-            if ($request->rate == 0 && $is_exsit == true) {
-                    $rate = DB::table('rates')->where('Book_id',$book_id)
-                            ->where('user_id',Auth::id())->get()[0]->rate;
+            if ($request->rate == 0 && $table_rate->exists() == true) {
+                    $rate = $table_rate->get()[0]->rate;
             }else{
                 $rate = $request->rate;
             }
-            
-            \App\User::find(Auth::id())->rates()
-                        ->attach([$book_id =>['rate'=>$rate ,
-                                              'comment'=>$comment ,
-                                              'created_at' => Carbon::now()]]);
 
-            if ($is_exsit == true ) {
-                $rating = DB::table('rates')
-                            ->where('Book_id',$book_id)
-                            ->where('user_id',Auth::id())->update(array('rate' => $rate));
+            if($table_comment== false &&$table_rate->exists() == false || 
+            $table_comment == true &&$comment != '' ||$table_comment == false &&$comment != '' ){
+            \App\User::find(Auth::id())->rates()
+            ->attach([$book_id =>['rate'=>$rate ,
+                                  'comment'=>$comment ,
+                                  'created_at' => Carbon::now()]]);
+
             }
+
+            if ($table_rate->exists() == true ) {
+                $rating = $table_rate->update(array('rate' => $rate));
+            }
+
+            if ($table_comment==true && $comment != '' ) {
+                DB::table('rates')->where('Book_id',$book_id)
+            ->where('user_id',Auth::id())->where('comment',null)->delete();
+            }
+            
 
 
         return redirect()->route('bookrate', $book_id);
@@ -140,9 +149,13 @@ class RateController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'comment' => ' required|max:250'  
-            ]);
-
+            'comment' => 'required_without:hiddenrate|max:250',
+        ],
+        [
+            'comment.required_without'
+            =>'To make a change, You have to edit something!!'
+        ]);
+        
         $rateId = $request->rateId;
         $rate = $request->hiddenrate;
         $comment = $request->comment;
