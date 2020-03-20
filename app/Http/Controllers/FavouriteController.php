@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Favourite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 use App\Book;
 
 class FavouriteController extends Controller
@@ -19,7 +20,8 @@ class FavouriteController extends Controller
 
     {
         $favourites = Favourite::where('user_id',Auth::id())->pluck('book_id')->toArray();
-        $books = Book::all();
+        $books = Book::paginate(3);
+        // $users = DB::table('favourites')->paginate();
         foreach ($books as $book) {
             if(!Auth::user()) {
                 $book->canBorrow = false;

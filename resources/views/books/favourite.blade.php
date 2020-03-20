@@ -87,17 +87,22 @@
        </div>
    </div>
             @endif
+           
             
        
     
 
     @endforeach
-</div>          
-</div>
+    
+</div>    
 
 </div>
-    <script src="{{asset('js/library_home.js')}}"> </script>
+<div style="margin-top: 30px;margin-left:350px">{{ $books->links()}}</div>
+</div>
+
+<script src="{{asset('js/library_home.js')}}"> </script>
                      
+  
                         
 
  @endsection
