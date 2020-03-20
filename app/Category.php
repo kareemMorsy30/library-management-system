@@ -9,4 +9,10 @@ class Category extends Model
 {
     protected $table = 'categories';
     use SoftDeletes;
+
+public function books()
+{
+    return $this->hasMany('App\Book');
+}
+
 }
