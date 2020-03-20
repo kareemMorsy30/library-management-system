@@ -98,10 +98,12 @@ class ListBookController extends Controller
 
         $books = Book::orderByDesc(
             DB::table('rates')
-            ->select('rate')
+            ->select(DB::raw("avg(rate) as count"))
             ->whereColumn('book_id','books.id')
-            ->orderBy('rate','desc')
+                ->groupBy('book_id')
+            ->orderBy('count','desc')
             )->paginate(3);
+//        return $books;
         foreach ($books as $book) {
             if(!Auth::user()) {
                 $book->canBorrow = false;
