@@ -1,0 +1,230 @@
+body{
+    overflow-x: hidden;
+}
+
+.navbar-brand{
+    margin-right: 100px;
+}
+
+#navbarDropdown{
+    margin-right: 80px;
+}
+
+nav{
+    background-color: lightgray;
+    position: sticky;
+}
+
+#myBooks,#favourites,#allbooks{
+    color: black;
+    font-size: medium;
+}
+
+#favourites:hover{
+    color: white;
+}
+
+#myBooks:hover{
+    color: white;
+}
+
+#allbooks:hover{
+    color: white;
+}
+
+img{
+  width: 13rem;
+  height: 14rem;
+}
+
+#myBooks{
+    margin-right: 30px;
+}
+
+#allbooks{
+    margin-right: 30px;
+}
+
+.dropdown-item:hover{
+    color: white;
+    background-color: blue;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;  
+    color: white;
+    background-color:  blue;
+}
+
+.card-header{
+    width: 13rem;
+    height: 14rem;
+}
+
+.col-md-6{
+    margin-left: 0;
+}
+
+.card{
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 10px;
+    margin-bottom: 80px;
+}
+
+.card-body{
+    width: 200px;
+}
+
+.title{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#lease{
+    display: block;
+    width: 12rem;
+}
+
+.comment{
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.table{
+    margin-top: 20px;
+    margin-left: 50px;
+    border: 2px solid lightgray;
+    margin-right: 300px;
+    border-radius: 10px;
+}
+
+
+.table th{
+    background-color: lightgray;
+}
+
+.related{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.rank{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.rankcomment {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-top: 60px;
+}
+
+#heart{
+    width: 40px;
+    height: 40px;
+    float: right;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+
+
+.rating {
+    display: inline-block;
+    position: relative;
+    height: 1.8em;
+    line-height: 1.8em;
+    font-size: 1.8em;
+  }
+  
+  .rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .rating label:last-child {
+    position: static;
+  }
+  
+  .rating label:nth-child(1) {
+    z-index: 5;
+  }
+  
+  .rating label:nth-child(2) {
+    z-index: 4;
+  }
+  
+  .rating label:nth-child(3) {
+    z-index: 3;
+  }
+  
+  .rating label:nth-child(4) {
+    z-index: 2;
+  }
+  
+  .rating label:nth-child(5) {
+    z-index: 1;
+  }
+  
+  .rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  
+  .rating label .icon {
+    float: left;
+    color: transparent;
+  }
+  
+  .rating label:last-child .icon {
+    color: #000;
+  }
+  
+  .rating:not(:hover) label input:checked ~ .icon,
+  .rating:hover label:hover input ~ .icon {
+    color:gold;
+  }
+  
+  .rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px gold;
+  }
+  th{
+    position: relative;
+  }
+  #stars-container {
+    position: absolute;
+    right: 3%;
+    top: 40%;
+  }
+
+  td{
+    position: relative;
+    height: 60px;
+  }
+  
+  #form-container{
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+    top: 5px;
+  }
+
+  .button{
+    display: inline-block;
+    margin: 5px;
+  }

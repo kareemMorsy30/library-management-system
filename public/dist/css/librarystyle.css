@@ -1,0 +1,160 @@
+body{
+    overflow-x: hidden;
+}
+
+.navbar-brand{
+    margin-right: 100px;
+}
+
+#navbarDropdown{
+    margin-right: 60px;
+}
+
+nav{
+    background-color: lightgray;
+    position: sticky;
+}
+
+#myBooks,#favourites,#allbooks{
+    color: black;
+    font-size: medium;
+}
+
+.loginBtn{
+    color: black;
+    font-size: medium;
+}
+
+.loginBtn:hover{
+    color: white;
+}
+
+#favourites:hover{
+    color: white;
+}
+
+#myBooks:hover{
+    color: white;
+}
+
+#allbooks:hover{
+    color: white;
+}
+
+#myBooks{
+    margin-right: 30px;
+}
+
+#allbooks{
+    margin-right: 30px;
+}
+
+.dropdown-item:hover{
+    color: white;
+    background-color: blue;
+}
+
+#categories{
+    margin-left: 50px;
+    margin-top: 30px;
+    border: 2px solid lightgray;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;  
+    color: white;
+    background-color:  blue;
+}
+
+#formStyle{
+    margin-top: 30px;
+    width: 350px;
+    border-radius: 10px;
+    margin-left: 420px;
+    margin-bottom: 10px;
+    background: url('/search.png') no-repeat scroll;
+    padding-left:40px;
+    background-size: 40px 32px;
+}
+
+.orderBy{
+    margin-top: 30px;
+    margin-left: 550px;
+    margin-bottom: 10px;
+}
+
+#line{
+    border-bottom: 2px solid lightgray;
+    margin-left: 380px;
+    margin-bottom: 20px;
+}
+
+.links{
+    margin-left: 50px;
+    margin-top: 0;
+    border: 2px solid lightgray;
+    margin-right: 50px;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+
+.links a {
+    padding: 1rem;
+    border-bottom: 2px solid lightgray;
+    /* box-sizing: border-box; */
+}
+
+.card-header{
+    width: 16rem;
+    height: 12rem;
+}
+
+.card-title{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+
+img{
+    width: 16rem;
+    height: 12rem;
+}
+.card-body{
+    width: 16rem;
+}
+
+.card-footer{
+    padding: 0;
+}
+
+#heart{
+    width: 40px;
+    height: 40px;
+    float: right;
+    cursor: pointer;
+}
+
+.rank{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.showCards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.card{
+    margin-left:  30px;
+}
+
+.pagination{
+    background-color: white;
+}

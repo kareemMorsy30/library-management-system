@@ -1,0 +1,72 @@
+* {
+  transition: all .1s linear;  
+}
+body {
+    font-family: 'Fira Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.main-footer {
+    text-align: center;
+}
+.container {
+    width: 100%;
+    padding: 50px 10%;
+}
+.container table {
+    width: 100%;
+}
+.container tr {
+    width: 100%;
+    padding: 10px 10%;
+}
+.container th {
+    padding: 10px 0;
+    line-height: normal;
+}
+.container td {
+    padding: 10px 5%;
+}
+.container small {
+    font-weight: 200;
+}
+.container input:not(.checkb):not(.submit) {
+    width: 80%;
+    padding: 5px;
+    border-radius: 2px;
+    border: 1px solid #AAA;
+    background-color: #F8F8F8;
+}
+.container input:focus:not(.checkb):not(.submit) {
+    border: 1px solid #565656;
+    background-color: #FDFDFD;
+    outline: 0;
+}
+.container .check {
+    color: #777;
+    font-weight: 300;
+    width: 100%;
+}
+.container .checkb {
+    margin-right: 5%;
+}
+.container .checkb:focus {
+    outline: 0;
+}
+.container #message {
+    padding: 10px;
+}
+.container .submit {
+    width: 20%;
+    margin: 10px auto;
+    display: block;
+    padding: 5px 0;
+    color: #FEFEFE;
+    background-color: #34C1DA;
+    border: 2px solid #32BBD3;
+    border-radius: 3px;
+    box-shadow: 1px 1px .5px rgba(0,0,0,.1);
+}
+.container .submit:hover {
+    background-color: #32BBD3;
+    border: 2px solid #34C1DA;
+    box-shadow: 1px 1px .5px rgba(0,0,0,0);
+}

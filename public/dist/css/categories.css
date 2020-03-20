@@ -1,0 +1,217 @@
+* {
+  transition: all .1s linear;  
+}
+body {
+    font-family: 'Fira Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.main-footer {
+    text-align: center;
+}
+.container {
+    width: 100%;
+    padding: 50px 2%;
+}
+#categoriesTable {
+    table-layout: fixed;
+    width: 100%;
+}
+table.dataTable td input {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 3px;
+    border: 1px solid #AAA;
+    transition: all .1s linear;
+    padding: 5px;
+    background-color: #FAFAFA;
+}
+table.dataTable td input:focus {
+    outline: 0;
+    border: 1px solid #565656;
+    background-color: #FFF;
+}
+.container .hide-input {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
+.container .number {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
+.container td textarea {
+    width: 100%;
+    resize: none;
+    border-radius: 3px;
+    border: 1px solid #AAA;
+    transition: all .1s linear;
+    padding: 5px;
+    background-color: #FAFAFA;
+}
+.container td textarea:focus {
+    outline: 0;
+    border: 1px solid #565656;
+    background-color: #FFF;
+}
+.container .hide-textarea {
+    border: 0;
+    background-color: transparent;
+    overflow: auto;
+    width: 100%;
+}
+.container #action-list {
+    margin: 15px 0;
+    display: block;
+    border-radius: 3px;
+    width: 20%;
+    font-size: 14px;
+    padding: 5px;
+    color: #565656;
+    float: left;
+}
+.container #action-list:focus {
+    outline: 0;
+}
+.container #save {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    width: 40%;
+    display: block;
+    padding: 5px 0;
+    color: #FEFEFE;
+    background-color: #34C1DA;
+    border: 2px solid #32BBD3;
+    border-radius: 3px;
+    box-shadow: 1px 1px .5px rgba(0,0,0,.1);
+}
+.container #save:hover, .container #apply:hover {
+    background-color: #32BBD3;
+    border: 2px solid #34C1DA;
+    box-shadow: 1px 1px .5px rgba(0,0,0,0);
+}
+.container #apply {
+    margin: 15px 0;
+    float: right;
+    font-size: 14px;
+    width: 20%;
+    display: block;
+    padding: 5px 0;
+    color: #FEFEFE;
+    background-color: #34C1DA;
+    border: 2px solid #32BBD3;
+    border-radius: 3px;
+    box-shadow: 1px 1px .5px rgba(0,0,0,.1);
+}
+.add-new-category {
+    padding: 10px;
+}
+.add-new-category h4 {
+    margin-bottom: 20px;
+}
+.add-new-category .add-name {
+    width: 80%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #AAA;
+    background-color: #F8F8F8;
+    display: block;
+    margin-bottom: 20px;
+}
+.icon {
+    height: 50px;
+    width: auto;
+    max-width: 70px;
+    margin: 5%;
+}
+.add-new-category .add-name:focus {
+    border: 1px solid #565656;
+    background-color: #FDFDFD;
+    outline: 0;
+}
+.add-new-category .add-description {
+    width: 80%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #AAA;
+    background-color: #F8F8F8;
+    resize: none;
+    min-height: 100px;
+    display: block;
+    margin-bottom: 20px;
+}
+.add-new-category .add-description:focus {
+    border: 1px solid #565656;
+    background-color: #FDFDFD;
+    outline: 0;
+}
+.add-new-category #select-cates {
+    width: 80%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #AAA;
+    background-color: #F8F8F8;
+    color: #565656;
+    margin-bottom: 20px;
+}
+.add-new-category #select-cates:focus {
+    border: 1px solid #565656;
+    background-color: #FDFDFD;
+    outline: 0;
+}
+.add-new-category .add-icon {
+    width: 80%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #AAA;
+    background-color: #F8F8F8;
+    color: #565656;
+}
+.add-new-category .add-icon input:focus {
+    outline: 0;
+}
+table.dataTable tr th.select-checkbox.selected::after {
+    content: "\2714";
+    margin-top: -17px;
+    margin-left: 9px;
+    text-align: center;
+/*    text-shadow: rgb(176, 190, 217) 1px 1px, rgb(176, 190, 217) -1px -1px, rgb(176, 190, 217) 1px -1px, rgb(176, 190, 217) -1px 1px;*/
+}
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
+  content: ' ';
+  margin-top: 4px;
+  margin-left: -6px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+table.dataTable tr.selected td.select-checkbox:after,
+table.dataTable tr.selected th.select-checkbox:after {
+    content: '\2714';
+    margin-top: -1px;
+    margin-left: -4px;
+    text-align: center;
+    text-shadow: none;
+}
+table.dataTable tr th.select-checkbox::before,
+table.dataTable tr th.select-checkbox::after {
+    display: block;
+    position: absolute;
+    top: 1.7em;
+    left: 4%;
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+}
+
+table.dataTable tr th.select-checkbox::before {
+    content: ' ';
+    margin-top: -12px;
+    margin-left: 7px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+table.dataTable tbody tr.selected {
+    background-color: #DDD;
+    color: #343434;
+}
