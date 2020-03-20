@@ -1,3 +1,6 @@
+@extends('layouts.categorylayout')
+   
+    
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.0/css/mdb.min.css" rel="stylesheet">
 
@@ -16,7 +19,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    @extends('layouts.categorylayout')
     @section('content')
 
     <!-- Main content -->
@@ -34,14 +36,14 @@
     <h2 class="alert 50" style="background-color:whitesmoke;text-align:center;"> Categories</h2>
 
     <a href="" class="btn btn-info" style="margin-left:55%" data-toggle="modal" data-target="#exampleModal">Add New Category</a>
-    <div class="col-md-12">
+    <div class="col-md-8">
 
         <table class="table table-border">
             <thead>
                 <tr>
 
-                    <th>name</th>
-                    <th>action</th>
+                    <th><strong>Name</strong></th>
+                    <th style="text-align:center;"><strong>Action</strong></th>
 
                 </tr>
             </thead>
@@ -55,11 +57,11 @@
 
                         @csrf
 
-                        <input type="submit" value="Edit" class="btn btn-warning btn-m" data-toggle="modal" data-target="#exampleModal-edit">
+                        <input style="width:80px" type="submit" value="Edit" class="btn btn-info btn-m" data-toggle="modal" data-target="#exampleModal-edit">
                         <!-- <a type="button" class="btn btn-danger btn-m">Delete</a> -->
                         <div class="modal fade" id="exampleModal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-notify modal-lg modal-default" role="document">
-                                <div class="modal-content">
+                                <div class="modal-content"> 
                                     <div class="modal-header">
                                         <h5 class="modal-title " id="exampleModalLabel">ADD NEW CATEGORY</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -75,7 +77,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">category name</span>
                                                 </div>
-                                                <input type="text" class="form-control" name="name" placeholder="Enter Category name">
+                                                <input type="text" class="form-control" name="name" value="{{($categories->name)}}">
                                             </div>
                                     </div>
                                     <div class="modal-footer">
@@ -101,11 +103,12 @@
                                 </div>
                             </div>
                         </div>
-
+                    </td>
+                    <td>
                         <form action="{{route('category.destroy', $categories->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" value="delete" class="btn btn-danger btn-m">
+                            <input style="width:80px" type="submit" value="delete" class="btn btn-danger btn-m">
                         </form>
 
                     </td>
