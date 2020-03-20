@@ -74,7 +74,7 @@ desired effect
 -->
 
 <body class="hold-transition skin-blue sidebar-mini" style="overflow-y: hidden;">
-<div style="background-color: #ecf0f1; height:100%; overflow-y: scroll;overflow-x: hidden">
+<div style="background-color: #ecf0f1; height:100%; width: device-width; overflow-y: scroll;">
 
   <!-- Main Header -->
   <header class="main-header">

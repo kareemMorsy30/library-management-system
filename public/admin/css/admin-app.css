@@ -1531,6 +1531,13 @@ pre code {
     max-width: 100%;
   }
 
+
+  @media (min-width: 1200px) {
+    .containerb {
+      width: 900px;
+      max-width: 100%;
+    }
+
   .row {
     margin-right: -14px;
     margin-left: -14px;
