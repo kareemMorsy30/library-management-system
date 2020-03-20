@@ -34,8 +34,13 @@ searchBar.addEventListener('input' , e => {
         success:function (data) {
             console.log(data);
            
+            let categories = document.getElementsByClassName('links')[0];
             let container = document.getElementsByClassName('showCards')[0];
             container.innerHTML = "";
+
+            if(categories){
+                $('.links').slideUp("slow", function() { $('.links').remove();});
+            }
 
             for(book of data.res){
                 let flex_card = document.createElement('div');
@@ -130,11 +135,9 @@ searchBar.addEventListener('input' , e => {
 
                 container.append(flex_card);
             }
-            
         },
         error:function(error){
             console.log(error);
-
         }
     });
 });
