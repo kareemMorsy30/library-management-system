@@ -36,7 +36,19 @@ searchBar.addEventListener('input' , e => {
            
             let categories = document.getElementsByClassName('links')[0];
             let container = document.getElementsByClassName('showCards')[0];
-            container.innerHTML = "";
+
+            if(data.res.length == 0){
+                let alert = document.createElement('div');
+                alert.setAttribute('class', 'alert alert-warning');
+                alert.innerHTML = "No search results";
+
+                let div = document.createElement('div');
+
+                container.innerHTML = "";
+                container.append(div);
+                container.append(alert);
+            }else{
+                container.innerHTML = "";
 
             if(categories){
                 $('.links').slideUp("slow", function() { $('.links').remove();});
@@ -134,6 +146,8 @@ searchBar.addEventListener('input' , e => {
                 flex_card.append(card_footer);
 
                 container.append(flex_card);
+            }
+            
             }
         },
         error:function(error){
