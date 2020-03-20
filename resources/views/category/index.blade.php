@@ -36,13 +36,9 @@
     <h2 class="alert 50" style="background-color:whitesmoke;text-align:center;"> Categories</h2>
 
     <a href="" class="btn btn-info" style="margin-left:55%" data-toggle="modal" data-target="#exampleModal">Add New Category</a>
-<<<<<<< HEAD
-    <div class="col-md-6" style="margin-left: 400px">
-=======
     <div class="col-md-8">
->>>>>>> 8e53c6594320a53410efe39f8d39717f3252eeb3
 
-        <table class="table table-border">
+        <table class="table table-border" style="margin-left: 300px;">
             <thead>
                 <tr>
 
