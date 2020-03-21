@@ -17,11 +17,11 @@ class BorrowChartController extends Controller
     public function index()
     {
         $profits = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        $books = Book::all();
+        $books = DB::table('books')->get();
 
         foreach($books as $book){
             for($i = 1; $i <= 12; $i++){
-                $profits[$i - 1] = $profits[$i - 1] + $book->price * count($book->users_borrows()->whereMonth('borrows.return_back', $i)->get());
+                $profits[$i - 1] = $profits[$i - 1] + $book->price * count(DB::table('borrows')->where('book_id', $book->id)->whereMonth('borrows.return_back', $i)->get());
             }
         }
 
